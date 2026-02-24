@@ -1,0 +1,19 @@
+// outfits/francois-civil.js
+export const francoisCivilOutfits = [
+  { id: 1001, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/cesar-2025.jpg", title: "Césars 2025", location: "Paris · 28 février 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1001" },
+  { id: 1002, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/cesar-2024.jpg", title: "Césars 2024", location: "Paris · 23 février 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1002" },
+  { id: 1003, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/cannes-2024.jpg", title: "Festival de Cannes 2024", location: "Cannes · 17 mai 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1003" },
+  { id: 1004, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/paris-fashion-week-2025.jpg", title: "Paris Fashion Week", location: "Paris · 4 mars 2025", tags: ["evenements"], url: "look-detail.html?id=1004" },
+  { id: 1005, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/street-style-paris-2024.jpg", title: "Street Style Paris", location: "Paris · 22 avril 2024", tags: ["quotidien"], url: "look-detail.html?id=1005" },
+  { id: 1006, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/premiere-paris-2024.jpg", title: "Avant-première Paris", location: "Paris · 8 octobre 2024", tags: ["tapis", "films"], url: "look-detail.html?id=1006" },
+  { id: 1007, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/cafe-paris-2025.jpg", title: "Café à Paris", location: "Paris · 14 janvier 2025", tags: ["quotidien"], url: "look-detail.html?id=1007" },
+  { id: 1008, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/airport-2024.jpg", title: "Aéroport CDG", location: "Paris · 30 mai 2024", tags: ["quotidien"], url: "look-detail.html?id=1008" },
+  { id: 1009, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/moliere-2024.jpg", title: "Molières 2024", location: "Paris · 10 juin 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1009" },
+  { id: 1010, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/paris-2025.jpg", title: "Balade à Paris", location: "Paris · 6 février 2025", tags: ["quotidien"], url: "look-detail.html?id=1010" },
+  { id: 1011, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/interview-tv-2024.jpg", title: "Interview TV", location: "Paris · 18 septembre 2024", tags: ["quotidien"], url: "look-detail.html?id=1011" },
+  { id: 1012, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/venice-2024.jpg", title: "Venice Film Festival 2024", location: "Venise · 7 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1012" },
+  { id: 1013, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/gala-2024.jpg", title: "Gala de l'Adami", location: "Paris · 14 octobre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1013" },
+  { id: 1014, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/london-2024.jpg", title: "Balade à Londres", location: "Londres · 2 décembre 2024", tags: ["quotidien"], url: "look-detail.html?id=1014" },
+  { id: 1015, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/fashion-week-homme-2025.jpg", title: "Paris Fashion Week Homme", location: "Paris · 17 janvier 2025", tags: ["evenements"], url: "look-detail.html?id=1015" },
+  { id: 1016, celeb: "francois-civil", img: "../../assets/img/outfits/celebs/francois-civil/premiere-2025.jpg", title: "Avant-première 2025", location: "Paris · 22 janvier 2025", tags: ["tapis", "films"], url: "look-detail.html?id=1016" },
+];

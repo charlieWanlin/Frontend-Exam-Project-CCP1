@@ -1,0 +1,19 @@
+// outfits/emma-watson.js
+export const emmaWatsonOutfits = [
+  { id: 501, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/bafta-2024.jpg", title: "BAFTA 2024", location: "Londres · 18 février 2024", tags: ["tapis"], url: "look-detail.html?id=501" },
+  { id: 502, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/met-gala-2024.jpg", title: "Met Gala 2024", location: "New York · 6 mai 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=502" },
+  { id: 503, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/paris-fashion-week-2025.jpg", title: "Paris Fashion Week", location: "Paris · 4 mars 2025", tags: ["evenements"], url: "look-detail.html?id=503" },
+  { id: 504, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/street-style-london-2024.jpg", title: "Street Style Londres", location: "Londres · 14 mars 2024", tags: ["quotidien"], url: "look-detail.html?id=504" },
+  { id: 505, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/golden-globes-2024.jpg", title: "Golden Globes 2024", location: "Los Angeles · 7 janvier 2024", tags: ["tapis"], url: "look-detail.html?id=505" },
+  { id: 506, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/airport-2024.jpg", title: "Aéroport Heathrow", location: "Londres · 22 juin 2024", tags: ["quotidien"], url: "look-detail.html?id=506" },
+  { id: 507, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/cannes-2024.jpg", title: "Festival de Cannes 2024", location: "Cannes · 18 mai 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=507" },
+  { id: 508, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/cafe-paris-2025.jpg", title: "Café à Paris", location: "Paris · 7 mars 2025", tags: ["quotidien"], url: "look-detail.html?id=508" },
+  { id: 509, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/oscars-2024.jpg", title: "Oscars 2024", location: "Los Angeles · 10 mars 2024", tags: ["tapis"], url: "look-detail.html?id=509" },
+  { id: 510, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/venice-2024.jpg", title: "Venice Film Festival 2024", location: "Venise · 3 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=510" },
+  { id: 511, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/nyc-2024.jpg", title: "Balade à New York", location: "New York · 18 septembre 2024", tags: ["quotidien"], url: "look-detail.html?id=511" },
+  { id: 512, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/london-2025.jpg", title: "Balade à Londres", location: "Londres · 10 janvier 2025", tags: ["quotidien"], url: "look-detail.html?id=512" },
+  { id: 513, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/sag-awards-2025.jpg", title: "SAG Awards 2025", location: "Los Angeles · 23 février 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=513" },
+  { id: 514, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/milan-fashion-week-2024.jpg", title: "Milan Fashion Week", location: "Milan · 20 septembre 2024", tags: ["evenements"], url: "look-detail.html?id=514" },
+  { id: 515, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/golden-globes-2025.jpg", title: "Golden Globes 2025", location: "Los Angeles · 5 janvier 2025", tags: ["tapis"], url: "look-detail.html?id=515" },
+  { id: 516, celeb: "emma-watson", img: "../../assets/img/outfits/celebs/emma-watson/bafta-2025.jpg", title: "BAFTA 2025", location: "Londres · 16 février 2025", tags: ["tapis"], url: "look-detail.html?id=516" },
+];

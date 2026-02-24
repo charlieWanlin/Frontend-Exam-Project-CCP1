@@ -1,0 +1,19 @@
+// outfits/sydney-sweeney.js
+export const sydneyOutfits = [
+  { id: 1401, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/sag-awards-2026.jpg", title: "SAG Awards 2026", location: "Los Angeles · 28 février 2026", tags: ["tapis", "evenements"], url: "look-detail.html?id=1401" },
+  { id: 1402, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/golden-globes-2026.jpg", title: "Golden Globes 2026", location: "Los Angeles · 5 janvier 2026", tags: ["tapis"], url: "look-detail.html?id=1402" },
+  { id: 1403, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/met-gala-2025.jpg", title: "Met Gala 2025", location: "New York · 5 mai 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1403" },
+  { id: 1404, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/vanity-fair-2025.jpg", title: "Vanity Fair Oscar Party", location: "Los Angeles · 2 mars 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1404" },
+  { id: 1405, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/euphoria-promo-2025.jpg", title: "Promo Euphoria S3", location: "Los Angeles · 8 février 2025", tags: ["series"], url: "look-detail.html?id=1405" },
+  { id: 1406, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/cannes-2025.jpg", title: "Festival de Cannes 2025", location: "Cannes · 18 mai 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1406" },
+  { id: 1407, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/street-style-la-2025.jpg", title: "Street Style LA", location: "Los Angeles · 22 mars 2025", tags: ["quotidien"], url: "look-detail.html?id=1407" },
+  { id: 1408, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/nyc-cafe-2025.jpg", title: "Café à New York", location: "New York · 15 avril 2025", tags: ["quotidien"], url: "look-detail.html?id=1408" },
+  { id: 1409, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/oscars-2025.jpg", title: "Oscars 2025", location: "Los Angeles · 2 mars 2025", tags: ["tapis"], url: "look-detail.html?id=1409" },
+  { id: 1410, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/bafta-2025.jpg", title: "BAFTA 2025", location: "Londres · 16 février 2025", tags: ["tapis"], url: "look-detail.html?id=1410" },
+  { id: 1411, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/venice-2025.jpg", title: "Venice Film Festival 2025", location: "Venise · 4 septembre 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1411" },
+  { id: 1412, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/met-gala-2024.jpg", title: "Met Gala 2024", location: "New York · 6 mai 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1412" },
+  { id: 1413, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/emmy-2024.jpg", title: "Emmy Awards 2024", location: "Los Angeles · 22 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1413" },
+  { id: 1414, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/golden-globes-2024.jpg", title: "Golden Globes 2024", location: "Los Angeles · 7 janvier 2024", tags: ["tapis"], url: "look-detail.html?id=1414" },
+  { id: 1415, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/street-style-nyc-2024.jpg", title: "Street Style NYC", location: "New York · 10 octobre 2024", tags: ["quotidien"], url: "look-detail.html?id=1415" },
+  { id: 1416, celeb: "sydney-sweeney", img: "../../assets/img/outfits/celebs/sydney-sweeney/sag-awards-2024.jpg", title: "SAG Awards 2024", location: "Los Angeles · 24 février 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1416" },
+];
