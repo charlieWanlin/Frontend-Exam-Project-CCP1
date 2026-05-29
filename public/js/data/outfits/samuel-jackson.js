@@ -1,0 +1,19 @@
+// outfits/samuel-jackson.js
+export const samuelJacksonOutfits = [
+  { id: 1301, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/oscars-2024.jpg", title: "Oscars 2024", location: "Los Angeles · 10 mars 2024", tags: ["tapis"], url: "look-detail.html?id=1301" },
+  { id: 1302, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/golden-globes-2025.jpg", title: "Golden Globes 2025", location: "Los Angeles · 5 janvier 2025", tags: ["tapis"], url: "look-detail.html?id=1302" },
+  { id: 1303, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/sag-awards-2024.jpg", title: "SAG Awards 2024", location: "Los Angeles · 24 février 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1303" },
+  { id: 1304, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/street-style-la-2024.jpg", title: "Street Style LA", location: "Los Angeles · 4 juillet 2024", tags: ["quotidien"], url: "look-detail.html?id=1304" },
+  { id: 1305, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/premiere-2024.jpg", title: "Avant-première 2024", location: "Los Angeles · 14 novembre 2024", tags: ["tapis", "films"], url: "look-detail.html?id=1305" },
+  { id: 1306, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/airport-2024.jpg", title: "Aéroport LAX", location: "Los Angeles · 26 juin 2024", tags: ["quotidien"], url: "look-detail.html?id=1306" },
+  { id: 1307, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/emmy-2024.jpg", title: "Emmy Awards 2024", location: "Los Angeles · 22 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1307" },
+  { id: 1308, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/nyc-2024.jpg", title: "Balade à New York", location: "New York · 30 août 2024", tags: ["quotidien"], url: "look-detail.html?id=1308" },
+  { id: 1309, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/bafta-2025.jpg", title: "BAFTA 2025", location: "Londres · 16 février 2025", tags: ["tapis"], url: "look-detail.html?id=1309" },
+  { id: 1310, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/golf-2024.jpg", title: "Tournoi de Golf", location: "Los Angeles · 2 août 2024", tags: ["quotidien"], url: "look-detail.html?id=1310" },
+  { id: 1311, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/oscars-2025.jpg", title: "Oscars 2025", location: "Los Angeles · 2 mars 2025", tags: ["tapis"], url: "look-detail.html?id=1311" },
+  { id: 1312, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/gala-2024.jpg", title: "Gala Charity", location: "New York · 16 octobre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1312" },
+  { id: 1313, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/london-2024.jpg", title: "Balade à Londres", location: "Londres · 18 février 2024", tags: ["quotidien"], url: "look-detail.html?id=1313" },
+  { id: 1314, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/premiere-2025.jpg", title: "Avant-première 2025", location: "Los Angeles · 30 janvier 2025", tags: ["tapis", "films"], url: "look-detail.html?id=1314" },
+  { id: 1315, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/golden-globes-2024.jpg", title: "Golden Globes 2024", location: "Los Angeles · 7 janvier 2024", tags: ["tapis"], url: "look-detail.html?id=1315" },
+  { id: 1316, celeb: "samuel-jackson", img: "../../assets/img/outfits/celebs/samuel-jackson/la-2025.jpg", title: "Balade à LA", location: "Los Angeles · 8 février 2025", tags: ["quotidien"], url: "look-detail.html?id=1316" },
+];

@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Uploadez une photo et notre IA identifie chaque vêtement et accessoire pour trouver les pièces exactes ou leurs alternatives."
+    />
+    <title>Style Finder — LE DRESSING</title>
+    <link rel="stylesheet" href="./src/output.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#f9f7f4] text-gray-900 pt-12">
+    <!-- ══════════════════════════════════════════
+         NAVBAR
+    ══════════════════════════════════════════ -->
+
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-4 bg-white border-b border-gray-100 transition-transform duration-300 md:px-10 xl:px-16"
+    >
+      <!-- Hamburger mobile -->
+      <button
+        id="mobile-menu-btn"
+        class="flex flex-col gap-1 cursor-pointer md:hidden"
+        aria-label="Menu"
+      >
+        <span class="block w-5 h-0.5 bg-black"></span>
+        <span class="block w-5 h-0.5 bg-black"></span>
+        <span class="block w-5 h-0.5 bg-black"></span>
+      </button>
+
+      <!-- Logo -->
+      <a
+        href="index.html"
+        class="absolute left-1/2 -translate-x-1/2 text-black font-black font-source-serif text-xl tracking-widest md:static md:translate-x-0 lg:text-xl"
+      >
+        LE DRESSING
+      </a>
+
+      <!-- Nav links desktop -->
+      <ul class="hidden md:flex md:gap-6 xl:gap-10">
+        <li>
+          <a
+            class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200"
+            href="catalog-celebrites.html"
+            >CÉLÉBRITÉS</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200"
+            href="catalog-series.html"
+            >SÉRIES</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200"
+            href="style-finder.html"
+            >STYLE FINDER</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200"
+            href="#"
+            >MAGAZINE</a
+          >
+        </li>
+      </ul>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 md:gap-5 xl:gap-6">
+        <!-- Recherche -->
+        <button
+          id="search-btn"
+          class="hover:opacity-60 cursor-pointer transition-opacity duration-200"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9.82299 10.883C8.71242 11.725 7.32362 12.114 5.93727 11.9713C4.55092 11.8287 3.27042 11.1651 2.35456 10.1146C1.4387 9.06411 0.955777 7.70512 1.0034 6.31227C1.05102 4.91942 1.62563 3.59658 2.6111 2.61111C3.59657 1.62564 4.9194 1.05103 6.31225 1.00341C7.70511 0.955789 9.0641 1.43871 10.1146 2.35457C11.165 3.27043 11.8287 4.55093 11.9713 5.93728C12.1139 7.32363 11.725 8.71243 10.883 9.823L15.603 14.543L14.543 15.603L9.82299 10.883ZM10.5 6.5C10.5 7.56087 10.0786 8.57828 9.32842 9.32843C8.57827 10.0786 7.56086 10.5 6.49999 10.5C5.43912 10.5 4.42171 10.0786 3.67156 9.32843C2.92142 8.57828 2.49999 7.56087 2.49999 6.5C2.49999 5.43914 2.92142 4.42172 3.67156 3.67157C4.42171 2.92143 5.43912 2.5 6.49999 2.5C7.56086 2.5 8.57827 2.92143 9.32842 3.67157C10.0786 4.42172 10.5 5.43914 10.5 6.5Z"
+              fill="black"
+            />
+          </svg>
+        </button>
+
+        <!-- Compte -->
+        <button
+          id="compte-btn"
+          class="hover:opacity-60 cursor-pointer transition-opacity duration-200"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_123_3189)">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4ZM10.5 4C10.5 4.66304 10.2366 5.29893 9.76777 5.76777C9.29893 6.23661 8.66304 6.5 8 6.5C7.33696 6.5 6.70107 6.23661 6.23223 5.76777C5.76339 5.29893 5.5 4.66304 5.5 4C5.5 3.33696 5.76339 2.70107 6.23223 2.23223C6.70107 1.76339 7.33696 1.5 8 1.5C8.66304 1.5 9.29893 1.76339 9.76777 2.23223C10.2366 2.70107 10.5 3.33696 10.5 4ZM8 9.5C6.112 9.5 4.174 9.701 2.681 10.355C1.926 10.685 1.251 11.148 0.763 11.79C0.268 12.444 0 13.24 0 14.17V16H1.5V14.17C1.5 13.544 1.674 13.072 1.958 12.697C2.25 12.313 2.69 11.989 3.283 11.729C4.487 11.202 6.174 11 8 11C9.833 11 11.518 11.182 12.721 11.7C13.312 11.954 13.751 12.274 14.04 12.66C14.323 13.035 14.5 13.519 14.5 14.171V16H16V14.171C16 13.223 15.735 12.416 15.239 11.757C14.749 11.107 14.071 10.647 13.314 10.321C11.82 9.678 9.88 9.5 8 9.5Z"
+                fill="black"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_123_3189">
+                <rect width="16" height="16" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </button>
+
+        <!-- Favoris -->
+        <a
+          href="#"
+          class="hidden sm:flex hover:opacity-60 transition-opacity duration-200"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.69703 2.253C9.49969 1.45253 10.5872 1.00335 11.7208 1.00412C12.8544 1.0049 13.9413 1.45555 14.7429 2.25712C15.5445 3.05869 15.9951 4.14562 15.9959 5.27921C15.9967 6.41279 15.5475 7.50034 14.747 8.303L8.00003 15.05L1.25303 8.304C0.452554 7.50134 0.00337884 6.41379 0.00415139 5.28021C0.00492393 4.14662 0.455581 3.05969 1.25715 2.25812C2.05871 1.45655 3.14565 1.0059 4.27923 1.00512C5.41282 1.00435 6.50037 1.45353 7.30303 2.254L8.00003 2.948L8.69603 2.252L8.69703 2.253ZM13.687 3.313C13.429 3.05484 13.1227 2.85005 12.7856 2.71033C12.4484 2.5706 12.087 2.49869 11.722 2.49869C11.3571 2.49869 10.9957 2.5706 10.6585 2.71033C10.3213 2.85005 10.015 3.05484 9.75703 3.313L8.00303 5.07L6.24303 3.315C5.71805 2.81403 5.01794 2.53828 4.29233 2.54667C3.56673 2.55507 2.87319 2.84695 2.35994 3.35994C1.8467 3.87292 1.55446 4.56631 1.54569 5.29192C1.53693 6.01752 1.81233 6.71777 2.31303 7.243L8.00003 12.928L13.686 7.242C14.2068 6.72105 14.4993 6.0146 14.4993 5.278C14.4993 4.5414 14.2068 3.83495 13.686 3.314L13.687 3.313Z"
+              fill="black"
+            />
+          </svg>
+        </a>
+
+        <!-- Panier -->
+        <a class="cart-page relative inline-flex" href="panier.html">
+          <svg
+            role="img"
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+            height="16"
+            width="16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 0C6.928 0 5.92.298 5.16.75c-.704.42-1.411 1.115-1.411 2V4.5L0 4.501V15h16V4.5h-3.75V2.75c0-.893-.7-1.59-1.41-2.01C10.08.29 9.072 0 8 0Zm2.75 6v3h1.5V6h2.25v7.5h-13V6h2.25v3h1.5V6h5.5Zm0-1.5V2.75c0-.08-.107-.383-.674-.72C9.557 1.724 8.816 1.5 8 1.5c-.808 0-1.55.228-2.07.539-.577.343-.68.648-.68.711V4.5h5.5Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         OVERLAYS & SIDEBARS & MODALS
+    ══════════════════════════════════════════ -->
+
+    <!-- Overlay global -->
+    <div id="overlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+
+    <!-- Search Sidebar -->
+    <div
+      id="search-sidebar"
+      class="fixed top-0 right-0 z-50 flex flex-col w-full h-full bg-white translate-x-full transition-transform duration-300 md:w-[420px]"
+      style="max-height: 100dvh; overflow: hidden"
+    >
+      <div
+        class="flex items-center gap-3 px-6 py-5 border-b border-gray-100 flex-shrink-0"
+      >
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9.82299 10.883C8.71242 11.725 7.32362 12.114 5.93727 11.9713C4.55092 11.8287 3.27042 11.1651 2.35456 10.1146C1.4387 9.06411 0.955777 7.70512 1.0034 6.31227C1.05102 4.91942 1.62563 3.59658 2.6111 2.61111C3.59657 1.62564 4.9194 1.05103 6.31225 1.00341C7.70511 0.955789 9.0641 1.43871 10.1146 2.35457C11.165 3.27043 11.8287 4.55093 11.9713 5.93728C12.1139 7.32363 11.725 8.71243 10.883 9.823L15.603 14.543L14.543 15.603L9.82299 10.883ZM10.5 6.5C10.5 7.56087 10.0786 8.57828 9.32842 9.32843C8.57827 10.0786 7.56086 10.5 6.49999 10.5C5.43912 10.5 4.42171 10.0786 3.67156 9.32843C2.92142 8.57828 2.49999 7.56087 2.49999 6.5C2.49999 5.43914 2.92142 4.42172 3.67156 3.67157C4.42171 2.92143 5.43912 2.5 6.49999 2.5C7.56086 2.5 8.57827 2.92143 9.32842 3.67157C10.0786 4.42172 10.5 5.43914 10.5 6.5Z"
+            fill="#9ca3af"
+          />
+        </svg>
+        <input
+          id="search-input"
+          type="text"
+          autocomplete="off"
+          placeholder="Rechercher une série..."
+          class="flex-1 outline-none text-sm text-gray-800 placeholder:text-gray-400"
+        />
+        <button
+          id="search-close"
+          class="text-gray-400 hover:text-gray-900 transition-colors cursor-pointer text-lg leading-none flex-shrink-0 w-8 h-8 flex items-center justify-center"
+        >
+          ✕
+        </button>
+      </div>
+      <div
+        id="search-suggestions"
+        class="flex-1 overflow-y-auto px-4 py-4"
+      ></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         MODAL COMPTE
+    ══════════════════════════════════════════ -->
+    <div
+      id="modal-compte"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden"
+    >
+      <!-- Plein écran mobile, centré desktop -->
+      <div
+        class="bg-white flex flex-col w-full h-full md:w-[480px] md:h-auto md:max-h-[90vh]"
+        id="modal-compte-inner"
+      >
+        <!-- Tabs header -->
+        <div class="flex border-b border-gray-100 flex-shrink-0">
+          <button
+            id="tab-connexion"
+            class="flex-1 text-xs tracking-widest uppercase py-4 text-gray-900 border-b-2 border-gray-900 cursor-pointer transition-colors duration-200"
+          >
+            Connexion
+          </button>
+          <button
+            id="tab-inscription"
+            class="flex-1 text-xs tracking-widest uppercase py-4 text-gray-400 cursor-pointer transition-colors duration-200"
+          >
+            Inscription
+          </button>
+          <button
+            id="modal-compte-close"
+            class="px-5 text-gray-400 hover:text-gray-900 cursor-pointer text-lg transition-colors duration-200 flex-shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Form Connexion -->
+        <div
+          id="form-connexion"
+          class="flex flex-col gap-5 px-6 py-10 sm:px-10 sm:py-10"
+        >
+          <!-- Header centré -->
+          <div class="text-center mb-2">
+            <p
+              class="font-black font-source-serif text-sm tracking-widest mb-1"
+            >
+              LE DRESSING
+            </p>
+            <p class="text-gray-400 text-xs">
+              Connectez-vous pour accéder à vos favoris
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs tracking-widest uppercase text-gray-500"
+              >Email</label
+            >
+            <input
+              type="email"
+              placeholder="votre@email.com"
+              class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs tracking-widest uppercase text-gray-500"
+              >Mot de passe</label
+            >
+            <input
+              type="password"
+              placeholder="••••••••"
+              class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+            />
+          </div>
+          <a
+            href="#"
+            class="text-xs text-gray-400 hover:text-gray-900 transition-colors duration-200 text-right"
+          >
+            Mot de passe oublié ?
+          </a>
+          <button
+            class="w-full bg-gray-900 text-white text-xs tracking-widest uppercase px-8 py-4 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
+          >
+            Se connecter
+          </button>
+          <p class="text-xs text-gray-400 text-center pb-2">
+            Pas encore de compte ?
+            <button
+              id="switch-to-inscription"
+              class="underline hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              S'inscrire
+            </button>
+          </p>
+        </div>
+
+        <!-- Form Inscription -->
+        <div
+          id="form-inscription"
+          class="flex flex-col gap-5 px-6 py-10 sm:px-10 sm:py-10 hidden"
+        >
+          <!-- Header centré -->
+          <div class="text-center mb-2">
+            <p
+              class="font-black text-sm font-source-serif tracking-widest mb-1"
+            >
+              LE DRESSING
+            </p>
+            <p class="text-gray-400 text-xs">Créez votre compte gratuitement</p>
+          </div>
+
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <div class="flex flex-col gap-1.5 flex-1">
+              <label class="text-xs tracking-widest uppercase text-gray-500"
+                >Prénom</label
+              >
+              <input
+                type="text"
+                placeholder="Jean"
+                class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+              />
+            </div>
+            <div class="flex flex-col gap-1.5 flex-1">
+              <label class="text-xs tracking-widest uppercase text-gray-500"
+                >Nom</label
+              >
+              <input
+                type="text"
+                placeholder="Dupont"
+                class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+              />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs tracking-widest uppercase text-gray-500"
+              >Email</label
+            >
+            <input
+              type="email"
+              placeholder="votre@email.com"
+              class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs tracking-widest uppercase text-gray-500"
+              >Mot de passe</label
+            >
+            <input
+              type="password"
+              placeholder="••••••••"
+              class="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-gray-900 transition-colors duration-200"
+            />
+          </div>
+          <button
+            class="w-full bg-gray-900 text-white text-xs tracking-widest uppercase px-8 py-4 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
+          >
+            Créer mon compte
+          </button>
+          <p class="text-xs text-gray-400 text-center pb-2">
+            Déjà un compte ?
+            <button
+              id="switch-to-connexion"
+              class="underline hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              Se connecter
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 z-40 flex-col gap-6 px-8 pt-20 pb-8 bg-white hidden md:hidden overflow-y-auto"
+    >
+      <a
+        href="catalog-celebrites.html"
+        class="text-sm tracking-widest uppercase border-b border-gray-100 pb-4"
+        >Célébrités</a
+      >
+      <a
+        href="catalog-series.html"
+        class="text-sm tracking-widest uppercase border-b border-gray-100 pb-4"
+        >Séries</a
+      >
+      <a
+        href="style-finder.html"
+        class="text-sm tracking-widest uppercase border-b border-gray-100 pb-4"
+        >Style Finder</a
+      >
+      <a
+        href="#"
+        class="text-sm tracking-widest uppercase border-b border-gray-100 pb-4"
+        >Magazine</a
+      >
+    </div>
+    <!-- HERO -->
+    <section class="pt-14 md:pt-24 pb-8 md:pb-16 px-4 text-center">
+      <p
+        class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-gray-400 mb-3 md:mb-4"
+      >
+        IA Search
+      </p>
+      <h1
+        class="font-['Cormorant_Garamond'] text-3xl md:text-6xl font-light italic text-gray-900 mb-3 md:mb-4"
+      >
+        Identifiez le look
+      </h1>
+      <p
+        class="text-[11px] md:text-xs text-gray-400 tracking-wide max-w-65 md:max-w-sm mx-auto leading-relaxed"
+      >
+        Uploadez une photo et notre IA trouvera les vêtements pour vous
+      </p>
+    </section>
+
+    <!-- DROP ZONE -->
+    <section class="px-4 pb-10 md:pb-16 flex justify-center">
+      <div class="w-full max-w-xl">
+        <div
+          id="drop-zone"
+          class="bg-white border border-dashed border-gray-300 hover:border-gray-500 rounded-sm p-8 md:p-16 flex flex-col items-center justify-center gap-4 md:gap-5 cursor-pointer transition-all duration-300 group"
+        >
+          <div
+            id="preview-wrapper"
+            class="hidden w-full flex-col items-center gap-4"
+          >
+            <img
+              id="preview-img"
+              src=""
+              alt="preview"
+              class="max-h-52 md:max-h-72 object-contain rounded-sm"
+            />
+            <button
+              id="remove-btn"
+              class="text-[9px] md:text-[10px] tracking-widest uppercase cursor-pointer text-gray-400 hover:text-black transition-colors"
+            >
+              Supprimer
+            </button>
+          </div>
+
+          <div
+            id="drop-content"
+            class="flex flex-col items-center gap-3 md:gap-5"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1"
+              class="text-gray-400 group-hover:text-gray-600 transition-colors md:w-6 md:h-6"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <div class="text-center">
+              <p class="text-xs md:text-sm text-gray-600 font-light">
+                Glissez votre photo ici
+              </p>
+              <p
+                class="text-[10px] md:text-xs text-gray-400 mt-1 hidden md:block"
+              >
+                ou cliquez pour parcourir
+              </p>
+            </div>
+            <button
+              id="choose-btn"
+              class="bg-gray-900 text-white text-[9px] md:text-[10px] tracking-[0.2em] uppercase px-5 md:px-8 py-2.5 md:py-3 cursor-pointer hover:bg-gray-700 transition-colors duration-200"
+            >
+              Choisir une photo
+            </button>
+            <p class="text-[10px] text-gray-300 tracking-wide hidden md:block">
+              PNG, JPG, WEBP · Max 10 Mo
+            </p>
+          </div>
+        </div>
+
+        <input type="file" id="file-input" accept="image/*" class="hidden" />
+
+        <div id="analyze-btn-wrapper" class="hidden mt-3 md:mt-4">
+          <button
+            id="analyze-btn"
+            class="w-full bg-gray-900 text-white text-[9px] md:text-[10px] tracking-[0.25em] cursor-pointer uppercase py-3.5 md:py-4 hover:bg-gray-700 transition-colors duration-200"
+          >
+            Analyser le look →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXEMPLES -->
+    <section class="px-4 pb-14 md:pb-20">
+      <p
+        class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-gray-400 text-center mb-5 md:mb-8"
+      >
+        Quelques exemples
+      </p>
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 max-w-3xl mx-auto"
+      >
+        <img
+          src="./assets/img/outfits/billie elish outfit.jpg"
+          alt=""
+          class="w-full aspect-[3/4] object-cover object-top cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        />
+        <img
+          src="./assets/img/outfits/peaky-blinders-outfit.jpg"
+          alt=""
+          class="w-full aspect-[3/4] object-cover object-top cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        />
+        <img
+          src="./assets/img/outfits/jenna-ortega-outfit.jpg"
+          alt=""
+          class="w-full aspect-[3/4] object-cover object-top cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        />
+        <img
+          src="./assets/img/outfits/emily-in-paris-outfit.jpg"
+          alt=""
+          class="w-full aspect-[3/4] object-cover object-top cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        />
+      </div>
+    </section>
+
+    <!-- COMMENT CA MARCHE -->
+    <section class="bg-[#f9f7f4] px-4 py-14 md:py-20">
+      <div class="max-w-5xl mx-auto">
+        <p
+          class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-gray-400 text-center mb-3 md:mb-4"
+        >
+          Notre technologie
+        </p>
+        <h2
+          class="font-['Cormorant_Garamond'] text-2xl md:text-4xl font-light text-center mb-8 md:mb-16"
+        >
+          Comment ça marche
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
+          <div class="bg-white p-5 md:p-8 border border-gray-100">
+            <p class="text-[10px] tracking-widest text-gray-300 mb-3 md:mb-6">
+              01
+            </p>
+            <h3
+              class="text-xs md:text-sm font-medium tracking-wide mb-2 md:mb-3"
+            >
+              Analyse de l'image
+            </h3>
+            <p
+              class="text-[10px] md:text-xs text-gray-400 font-light leading-relaxed"
+            >
+              Notre IA détecte automatiquement chaque vêtement et accessoire
+              présent sur la photo.
+            </p>
+          </div>
+          <div class="bg-white p-5 md:p-8 border border-gray-100">
+            <p class="text-[10px] tracking-widest text-gray-300 mb-3 md:mb-6">
+              02
+            </p>
+            <h3
+              class="text-xs md:text-sm font-medium tracking-wide mb-2 md:mb-3"
+            >
+              Identification précise
+            </h3>
+            <p
+              class="text-[10px] md:text-xs text-gray-400 font-light leading-relaxed"
+            >
+              Reconnaissance de la marque, du modèle et des caractéristiques
+              exactes du vêtement.
+            </p>
+          </div>
+          <div class="bg-white p-5 md:p-8 border border-gray-100">
+            <p class="text-[10px] tracking-widest text-gray-300 mb-3 md:mb-6">
+              03
+            </p>
+            <h3
+              class="text-xs md:text-sm font-medium tracking-wide mb-2 md:mb-3"
+            >
+              Résultats instantanés
+            </h3>
+            <p
+              class="text-[10px] md:text-xs text-gray-400 font-light leading-relaxed"
+            >
+              Trouvez l'article et toutes les alternatives disponibles chez vos
+              marques préférées.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOS ATOUTS -->
+    <section class="px-4 py-14 md:py-20">
+      <div class="max-w-5xl mx-auto">
+        <p
+          class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-gray-400 text-center mb-10 md:mb-16"
+        >
+          Nos atouts
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+          <div class="flex flex-col items-center text-center gap-3">
+            <div
+              class="w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center shrink-0"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] md:text-xs font-medium tracking-wide mb-1">
+                Multi-détection
+              </p>
+              <p
+                class="text-[9px] md:text-[10px] text-gray-400 font-light leading-relaxed"
+              >
+                Plusieurs vêtements sur une même photo
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <div
+              class="w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center shrink-0"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] md:text-xs font-medium tracking-wide mb-1">
+                Haute précision
+              </p>
+              <p
+                class="text-[9px] md:text-[10px] text-gray-400 font-light leading-relaxed"
+              >
+                95% d'articles correctement identifiés
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <div
+              class="w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center shrink-0"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] md:text-xs font-medium tracking-wide mb-1">
+                Base de données
+              </p>
+              <p
+                class="text-[9px] md:text-[10px] text-gray-400 font-light leading-relaxed"
+              >
+                Plus d'un million d'articles référencés
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center gap-3">
+            <div
+              class="w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center shrink-0"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] md:text-xs font-medium tracking-wide mb-1">
+                Pour tous
+              </p>
+              <p
+                class="text-[9px] md:text-[10px] text-gray-400 font-light leading-relaxed"
+              >
+                Simple et accessible à tous
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="bg-gray-950 text-white px-4 py-14 md:py-24 text-center">
+      <p
+        class="text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-gray-500 mb-5 md:mb-6"
+      >
+        Essayez maintenant
+      </p>
+      <h2
+        class="font-['Cormorant_Garamond'] text-2xl md:text-5xl font-light italic mb-3 md:mb-4"
+      >
+        Vous avez un look en tête ?
+      </h2>
+      <p
+        class="text-[11px] md:text-xs text-gray-400 tracking-wide mb-8 md:mb-12 max-w-65 md:max-w-sm mx-auto leading-relaxed"
+      >
+        Importez n'importe quelle photo — célébrité, série, magazine — notre IA
+        s'occupe du reste
+      </p>
+      <div
+        id="cta-scroll"
+        class="border border-dashed border-gray-700 bg-gray-900 max-w-xs md:max-w-md mx-auto p-8 md:p-12 flex flex-col items-center gap-3 md:gap-5 cursor-pointer hover:border-gray-500 transition-colors duration-300"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"
+          class="text-gray-500"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="17 8 12 3 7 8" />
+          <line x1="12" y1="3" x2="12" y2="15" />
+        </svg>
+        <p class="text-[10px] md:text-xs text-gray-400">
+          Glissez votre photo ici
+        </p>
+        <button
+          id="cta-btn"
+          class="bg-white text-gray-900 text-[9px] md:text-[10px] tracking-[0.25em] cursor-pointer uppercase px-5 md:px-8 py-2.5 md:py-3 hover:bg-gray-200 transition-colors duration-200"
+        >
+          Upload une photo →
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <script type="module" src="./src/js/styleFinder.js"></script>
+    <script type="module" src="./src/js/main.js"></script>
+  </body>
+</html>

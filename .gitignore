@@ -1,0 +1,11 @@
+# Dépendances et config locale
+/vendor/
+.env
+config/database.php
+
+# MAMP / système
+.DS_Store
+*.log
+
+# PHP
+*.swp

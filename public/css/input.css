@@ -1,0 +1,60 @@
+/* Toujours mettre les imports pour la font en premier pour éviter les problèmes de chargement */
+
+@import "tailwindcss";
+
+@theme {
+  --font-source-serif: "Source Serif 4", serif;
+  /* === FOND & STRUCTURE === */
+  --color-bg: #ffffff; /* fond principal */
+  --color-bg-soft: #faf9f7; /* sections alternées */
+  --color-bg-warm: #f4f1ec; /* highlight doux */
+  --color-border: #e8e0d4; /* dividers, cartes */
+
+  /* === TEXTE === */
+  --color-text: #1c1a18; /* corps, titres */
+  --color-onglets: #737373; /* onglets, liens */
+  --color-text-muted: #8c8279; /* descriptions */
+  --color-text-faint: #b8afa4; /* meta, labels */
+
+  /* === ACCENTS === */
+  --color-gold: #c9a96e; /* ★ accent principal */
+  --color-gold-deep: #b8922a; /* hover, focus */
+
+  /* === ACTIONS === */
+  --color-cta: #0d0c0b; /* boutons primaires */
+  --color-cta-text: #ffffff; /* texte boutons */
+  --color-dark: #0d0c0b; /* header, footer */
+  --font-serif: "Cormorant Garamond", serif;
+  --font-garamond: "EB Garamond", Georgia, serif;
+  --font-sans: "Didact Gothic", sans-serif;
+
+  --color-cream: #f5f0e8;
+  --color-parchment: #ede7d9;
+  --color-gold: #c9a96e;
+  --color-gold-dark: #9c7a3c;
+  --color-ink: #1a1612;
+}
+
+@layer utilities {
+  @media (min-width: 1024px) {
+    .label-1 {
+      top: 30%;
+      right: 14%;
+    }
+    .label-2 {
+      top: 30%;
+      left: 18%;
+    }
+    .label-3 {
+      bottom: 30%;
+      right: 72%;
+    }
+    .label-4 {
+      bottom: 8%;
+      right: 19%;
+    }
+  }
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

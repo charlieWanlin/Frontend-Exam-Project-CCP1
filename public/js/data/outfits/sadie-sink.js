@@ -1,0 +1,19 @@
+// outfits/sadie-sink.js
+export const sadieSinkOutfits = [
+  { id: 1601, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/met-gala-2024.jpg", title: "Met Gala 2024", location: "New York · 6 mai 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1601" },
+  { id: 1602, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/golden-globes-2025.jpg", title: "Golden Globes 2025", location: "Los Angeles · 5 janvier 2025", tags: ["tapis"], url: "look-detail.html?id=1602" },
+  { id: 1603, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/stranger-things-promo-2025.jpg", title: "Promo Stranger Things S5", location: "Los Angeles · 20 janvier 2025", tags: ["series"], url: "look-detail.html?id=1603" },
+  { id: 1604, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/emmy-2024.jpg", title: "Emmy Awards 2024", location: "Los Angeles · 22 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1604" },
+  { id: 1605, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/street-style-nyc-2024.jpg", title: "Street Style NYC", location: "New York · 14 octobre 2024", tags: ["quotidien"], url: "look-detail.html?id=1605" },
+  { id: 1606, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/sag-awards-2025.jpg", title: "SAG Awards 2025", location: "Los Angeles · 23 février 2025", tags: ["tapis", "evenements"], url: "look-detail.html?id=1606" },
+  { id: 1607, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/bafta-2025.jpg", title: "BAFTA 2025", location: "Londres · 16 février 2025", tags: ["tapis"], url: "look-detail.html?id=1607" },
+  { id: 1608, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/airport-2024.jpg", title: "Aéroport JFK", location: "New York · 8 juillet 2024", tags: ["quotidien"], url: "look-detail.html?id=1608" },
+  { id: 1609, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/paris-fashion-week-2024.jpg", title: "Paris Fashion Week", location: "Paris · 1 octobre 2024", tags: ["evenements"], url: "look-detail.html?id=1609" },
+  { id: 1610, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/cafe-nyc-2025.jpg", title: "Café à New York", location: "New York · 25 janvier 2025", tags: ["quotidien"], url: "look-detail.html?id=1610" },
+  { id: 1611, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/oscars-2025.jpg", title: "Oscars 2025", location: "Los Angeles · 2 mars 2025", tags: ["tapis"], url: "look-detail.html?id=1611" },
+  { id: 1612, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/london-2024.jpg", title: "Balade à Londres", location: "Londres · 17 novembre 2024", tags: ["quotidien"], url: "look-detail.html?id=1612" },
+  { id: 1613, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/premiere-2024.jpg", title: "Avant-première 2024", location: "Los Angeles · 6 novembre 2024", tags: ["tapis", "films"], url: "look-detail.html?id=1613" },
+  { id: 1614, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/golden-globes-2024.jpg", title: "Golden Globes 2024", location: "Los Angeles · 7 janvier 2024", tags: ["tapis"], url: "look-detail.html?id=1614" },
+  { id: 1615, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/venice-2024.jpg", title: "Venice Film Festival 2024", location: "Venise · 10 septembre 2024", tags: ["tapis", "evenements"], url: "look-detail.html?id=1615" },
+  { id: 1616, celeb: "sadie-sink", img: "../../assets/img/outfits/celebs/sadie-sink/milan-fashion-week-2024.jpg", title: "Milan Fashion Week", location: "Milan · 21 septembre 2024", tags: ["evenements"], url: "look-detail.html?id=1616" },
+];
