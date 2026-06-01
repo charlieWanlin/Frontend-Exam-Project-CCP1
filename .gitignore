@@ -9,3 +9,6 @@ config/database.php
 
 # PHP
 *.swp
+
+# IDE
+.vscode/settings.json
