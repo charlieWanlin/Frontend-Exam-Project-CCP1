@@ -1,18 +1,12 @@
 # Active le moteur de réécriture d'URLs d'Apache
-# Sans cette ligne, rien ne fonctionne
 RewriteEngine On
 
 # Condition 1 : l'URL demandée n'est PAS un fichier qui existe réellement
-# ex: /css/style.css existe → on ne redirige pas, Apache le sert directement
 RewriteCond %{REQUEST_FILENAME} !-f
 
 # Condition 2 : l'URL demandée n'est PAS un dossier qui existe réellement
-# ex: /images/ existe → on ne redirige pas non plus
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Si les 2 conditions sont vraies → on redirige vers index.php
-# ^(.*)$  = on capture tout ce qui est dans l'URL
-# ?url=$1 = on le passe en paramètre GET : index.php?url=celebrities
-# QSA     = on garde les autres paramètres GET s'il y en a (?page=2 etc.)
-# L       = Last, c'est la dernière règle, on arrête là
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+# Redirige tout vers index.php
+# Plus besoin de ?url=$1, le router lit directement REQUEST_URI
+RewriteRule ^ index.php [L]

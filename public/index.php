@@ -18,8 +18,7 @@ $router->get('/series',                'SeriesController',      'index');
 $router->get('/series/:slug',          'SeriesController',      'show');
 $router->get('/looks/:id',             'LooksController',       'show');
 
-// -------------------------------------------------------
 // Lance le routing
 // -------------------------------------------------------
-$url = $_GET['url'] ?? '/';
-$router->dispatch($url);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$router->dispatch($uri);

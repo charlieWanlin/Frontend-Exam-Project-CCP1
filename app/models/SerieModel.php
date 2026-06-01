@@ -11,10 +11,9 @@ class SerieModel {
         $this->db = getDB();
     }
 
-    // Home — 8 séries les plus populaires
     public function getPopulaires(int $limite = 8): array {
         $stmt = $this->db->prepare(
-            "SELECT id, nom, slug, photo, nb_looks
+            "SELECT id, nom, slug, photo, style, description, nb_looks
              FROM series
              ORDER BY popularite DESC
              LIMIT :limite"
@@ -24,10 +23,9 @@ class SerieModel {
         return $stmt->fetchAll();
     }
 
-    // Page catalogue — toutes les séries
     public function getToutes(): array {
         $stmt = $this->db->prepare(
-            "SELECT id, nom, slug, photo, style, nb_looks
+            "SELECT id, nom, slug, photo, style, description, nb_looks
              FROM series
              ORDER BY popularite DESC"
         );
@@ -35,7 +33,6 @@ class SerieModel {
         return $stmt->fetchAll();
     }
 
-    // Page détail — une série par son slug
     public function getParSlug(string $slug): array|false {
         $stmt = $this->db->prepare(
             "SELECT * FROM series WHERE slug = :slug"
