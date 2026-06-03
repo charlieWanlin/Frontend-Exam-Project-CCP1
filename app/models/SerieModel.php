@@ -23,7 +23,7 @@ class SerieModel {
         return $stmt->fetchAll();
     }
 
-    public function getToutes(): array {
+    public function getAll(): array {
         $stmt = $this->db->prepare(
             "SELECT id, nom, slug, photo, style, description, nb_looks
              FROM series

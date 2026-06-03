@@ -13,6 +13,7 @@ $router = new Router();
 
 $router->get('/',                      'HomeController',        'index');
 $router->get('/celebrities',           'CelebritiesController', 'index');
+$router->get('/api/celebrities',         'CelebritiesController', 'api'); // route API pour les requêtes AJAX de la page célébrités
 $router->get('/celebrities/:slug',     'CelebritiesController', 'show');
 $router->get('/series',                'SeriesController',      'index');
 $router->get('/series/:slug',          'SeriesController',      'show');
