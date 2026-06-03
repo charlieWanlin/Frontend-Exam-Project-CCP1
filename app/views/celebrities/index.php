@@ -1,8 +1,7 @@
 <?php require_once __DIR__ . '/../partials/header.php'; ?>
 
 <!-- ════════════════════════════════════════════════════
-     STYLES INLINE — animations + états filtres
-     (identiques aux keyframes du output.css original)
+     STYLES INLINE
 ════════════════════════════════════════════════════ -->
 <style>
   @keyframes scrollUp {
@@ -92,39 +91,41 @@
     font-family:    var(--font-sans);
     font-size:      .7rem;
     letter-spacing: .04em;
-    padding:        .25rem .75rem;
+    padding:        .28rem .9rem;
     cursor:         pointer;
     border:         1px solid transparent;
+    border-radius:  999px;
     color:          var(--color-muted);
     background:     transparent;
-    transition:     color .2s, border-color .2s;
+    transition:     color .2s, border-color .2s, background .2s;
     line-height:    1.6;
+    white-space:    nowrap;
   }
-  .filter-btn:hover,
-  .filter-btn.active {
+  .filter-btn:hover {
     color:        var(--color-text);
     border-color: var(--color-border);
   }
+  .filter-btn.active {
+    color:        var(--color-text);
+    border-color: var(--color-text);
+    background:   transparent;
+  }
 
-  /* ── Filtres alphabétiques ── */
-  .letter-btn {
+  /* ── Boutons de pagination ── */
+  .page-btn {
     font-family:    var(--font-sans);
-    font-size:      .62rem;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding:        .2rem .4rem;
-    cursor:         pointer;
-    background:     none;
-    border:         none;
-    border-bottom:  1px solid transparent;
+    font-size:      .68rem;
+    letter-spacing: .08em;
+    padding:        .3rem .65rem;
+    border:         1px solid var(--color-border);
+    background:     transparent;
     color:          var(--color-muted);
-    transition:     color .15s, border-color .15s;
+    cursor:         pointer;
+    transition:     all .15s;
   }
-  .letter-btn:hover { color: var(--color-text); }
-  .letter-btn.active {
-    color:         var(--color-gold);
-    border-bottom: 1px solid var(--color-gold);
-  }
+  .page-btn:hover    { color: var(--color-text); border-color: var(--color-text); }
+  .page-btn.active   { border-color: var(--color-text); background: var(--color-text); color: var(--color-cream); }
+  .page-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
 
   /* ── Skeleton loader ── */
   .skeleton {
@@ -160,19 +161,41 @@
     transform: scale(1.05);
   }
   .celeb-card .celeb-arrow {
-    color:      var(--color-faint);
-    transition: color .2s;
-    font-family: var(--font-sans);
-    font-size:   .65rem;
+    color:          var(--color-faint);
+    transition:     color .2s;
+    font-family:    var(--font-sans);
+    font-size:      .65rem;
     letter-spacing: .18em;
     text-transform: uppercase;
   }
   .celeb-card:hover .celeb-arrow { color: var(--color-text); }
+
+  /*
+   * ── Compteur "looks" sur les cartes ────────────────────
+   * Avant : couleur gold trop terne sur fond crème.
+   * Maintenant : chiffre en blanc sur pastille dorée foncée,
+   * bien lisible quelle que soit la luminosité du thème.
+   */
+  .looks-count {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            .3em;
+    font-family:    var(--font-sans);
+    font-size:      .62rem;
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          #fff;
+    background:     #b8982a;        /* or foncé, contraste WCAG AA */
+    padding:        .18em .55em;
+    border-radius:  2px;
+  }
 </style>
 
 
 <!-- ════════════════════════════════════════════════════
      HERO — DESKTOP (colonnes défilantes)
+     CORRECTION : col 1 s'étend jusqu'en bas (height:120%, margin-top:-10%)
 ════════════════════════════════════════════════════ -->
 <section
   id="hero-celebrities"
@@ -185,8 +208,12 @@
     class="absolute inset-0 flex gap-1.5 pointer-events-none select-none"
     aria-hidden="true"
   >
-    <!-- Col 1 — monte lentement -->
-    <div class="flex-1 overflow-hidden" style="margin-top: -10%; height: 110%">
+    <!--
+      Col 1 — monte lentement
+      AVANT : margin-top:-10%; height:110%  → s'arrêtait avant le bas
+      APRÈS : margin-top:-10%; height:120%  → couvre bien tout le bas
+    -->
+    <div class="flex-1 overflow-hidden" style="margin-top: -10%; height: 120%">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-up-slow">
         <?php foreach (array_merge($col1, $col1) as $img): ?>
           <img
@@ -200,7 +227,7 @@
       </div>
     </div>
 
-    <!-- Col 2 — plus large, monte vite -->
+    <!-- Col 2 — descend (plus large) -->
     <div class="overflow-hidden h-full" style="flex: 1.4">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-down-med">
         <?php foreach (array_merge($col2, $col2) as $img): ?>
@@ -215,7 +242,7 @@
       </div>
     </div>
 
-    <!-- Col 3 — descend -->
+    <!-- Col 3 — monte -->
     <div class="flex-1 overflow-hidden" style="margin-bottom: -10%; height: 110%">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-up-slow">
         <?php foreach (array_merge($col3, $col3) as $img): ?>
@@ -327,7 +354,7 @@
 <section id="section-catalogue" aria-labelledby="catalogue-title" class="max-w-6xl mx-auto px-6 py-14">
 
   <!-- En-tête -->
-  <header id="catalogue-header" class="text-center mb-8">
+  <header class="text-center mb-8">
     <h2 id="catalogue-title" class="font-heading text-3xl font-normal text-[#1a1a1a]">
       Les looks portés par les célébrités
     </h2>
@@ -339,142 +366,93 @@
   <!-- ── Barre de contrôles ── -->
   <div
     id="catalogue-controls"
-    class="flex items-center justify-between mb-8 gap-y-3 flex-wrap md:mb-14"
+    class="flex items-center justify-between mb-8 gap-y-3 flex-wrap md:mb-10"
     role="toolbar"
     aria-label="Filtres et tri du catalogue"
   >
     <!-- Compteur -->
-    <div id="celebs-counter" class="flex-1 min-w-fit" aria-live="polite" aria-atomic="true">
+    <div class="flex-1 min-w-fit" aria-live="polite" aria-atomic="true">
       <p class="text-xs text-muted font-body">
         <span id="celebs-count">—</span> célébrités
       </p>
     </div>
 
-    <!-- Filtres catégories desktop -->
+    <!-- Filtres desktop -->
     <?php
-      // Aligné sur la maquette `catalog-celebrites.html`
       $cats = [
-        'tous' => 'Tous',
-        'cinéma' => 'Cinéma',
-        'mannequinat' => 'Mannequinat',
-        'chant' => 'Chant',
-        'youtube' => 'Youtube',
+        'tous'        => 'Tous',
+        'cinéma'      => 'Cinéma',
+        'chant'       => 'Chant',
+        'mode'        => 'Mode',
+        'sport'       => 'Sport',
         'influenceur' => 'Influenceur',
       ];
     ?>
-    <div
-      id="filters-desktop"
-      class="hidden md:flex flex-1 justify-center"
-      role="group"
-      aria-label="Filtrer par catégorie"
-    >
-      <div class="flex gap-2">
+    <div class="hidden md:flex flex-1 justify-center" role="group" aria-label="Filtrer par catégorie">
+      <div class="flex gap-1.5">
         <?php foreach ($cats as $val => $label): ?>
           <button
             data-filter="<?= htmlspecialchars($val) ?>"
-            class="filter-btn <?= $val === 'tous' ? 'active' : '' ?> text-xs <?= $val === 'tous' ? 'text-[#1a1a1a] border border-muted' : 'text-muted' ?> px-3 py-1 cursor-pointer font-body hover:text-gold transition-colors duration-200"
+            class="filter-btn<?= $val === 'tous' ? ' active' : '' ?>"
             aria-pressed="<?= $val === 'tous' ? 'true' : 'false' ?>"
             type="button"
-          >
-            <?= htmlspecialchars($label) ?>
-          </button>
+          ><?= htmlspecialchars($label) ?></button>
         <?php endforeach; ?>
       </div>
     </div>
 
-    <!-- Bouton filtres mobile -->
+    <!-- Toggle filtres mobile -->
     <button
       id="filter-toggle"
       class="text-xs text-muted px-3 py-1 cursor-pointer border border-border font-body md:hidden hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors duration-200"
       aria-expanded="false"
       aria-controls="filter-menu"
-      aria-label="Ouvrir les filtres de catégorie"
       type="button"
-    >
-      Filtres
-    </button>
+    >Filtres</button>
 
-    <!-- Menu filtres mobile (caché par défaut) -->
-    <div
-      id="filter-menu"
-      class="hidden w-full mb-6 pb-6 border-b border-border md:hidden"
-      role="group"
-      aria-label="Filtres catégorie mobile"
-    >
+    <!-- Menu filtres mobile (masqué par défaut) -->
+    <div id="filter-menu" class="hidden w-full mb-4 pb-4 border-b border-border md:hidden" role="group">
       <div class="flex flex-wrap gap-2">
         <?php foreach ($cats as $val => $label): ?>
           <button
             data-filter="<?= htmlspecialchars($val) ?>"
-            class="filter-btn <?= $val === 'tous' ? 'active' : '' ?> text-xs <?= $val === 'tous' ? 'text-[#1a1a1a] border border-muted' : 'text-muted' ?> px-3 py-1 cursor-pointer font-body"
+            class="filter-btn<?= $val === 'tous' ? ' active' : '' ?>"
             aria-pressed="<?= $val === 'tous' ? 'true' : 'false' ?>"
             type="button"
-          >
-            <?= htmlspecialchars($label) ?>
-          </button>
+          ><?= htmlspecialchars($label) ?></button>
         <?php endforeach; ?>
-      </div>
-
-      <!-- Tri mobile -->
-      <div class="mt-4 pt-4 border-t border-border">
-        <div id="sort-dropdown-mobile" class="relative">
-          <button
-            id="sort-btn-mobile"
-            class="text-xs text-muted flex items-center gap-1 hover:text-[#1a1a1a] transition-colors duration-200 cursor-pointer whitespace-nowrap font-body"
-            aria-expanded="false"
-            aria-controls="sort-menu-mobile"
-            aria-label="Trier les célébrités"
-            type="button"
-          >
-            <span id="sort-label-mobile">Populaires</span>
-            <span aria-hidden="true" class="text-[20px]">▾</span>
-          </button>
-          <ul
-            id="sort-menu-mobile"
-            class="hidden absolute left-0 top-6 z-50 bg-white"
-            role="listbox"
-            aria-label="Options de tri"
-            style="box-shadow: 0 8px 32px rgba(0,0,0,.07)"
-          >
-            <?php foreach (['recents' => 'Récents', 'alpha-asc' => 'A → Z', 'alpha-desc' => 'Z → A', 'looks' => 'Nb de looks'] as $sv => $sl): ?>
-              <li
-                data-sort="<?= $sv ?>"
-                role="option"
-                aria-selected="false"
-                class="sort-opt-mobile text-xs text-muted px-5 py-2.5 hover:text-[#1a1a1a] hover:bg-bg-soft cursor-pointer whitespace-nowrap font-body"
-              ><?= htmlspecialchars($sl) ?></li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
       </div>
     </div>
 
     <!-- Tri desktop -->
-    <div id="sort-desktop" class="hidden md:flex flex-1 justify-end">
-      <div id="sort-dropdown" class="relative min-w-32 flex justify-end">
+    <div class="hidden md:flex flex-1 justify-end">
+      <div class="relative flex justify-end">
         <button
           id="sort-btn"
-          class="text-xs text-muted flex items-center gap-1 hover:text-[#1a1a1a] transition-colors duration-200 cursor-pointer whitespace-nowrap font-body"
+          class="text-xs text-muted flex items-center gap-1 hover:text-[#1a1a1a] transition-colors cursor-pointer whitespace-nowrap font-body"
           aria-expanded="false"
-          aria-controls="sort-menu"
-          aria-label="Trier les célébrités"
           type="button"
         >
           <span id="sort-label">Populaires</span>
-          <span aria-hidden="true" class="text-[20px]">▾</span>
+          <span aria-hidden="true">▾</span>
         </button>
         <ul
           id="sort-menu"
-          class="hidden absolute left-9 top-6 z-50 bg-white"
+          class="hidden absolute right-0 top-6 z-50 bg-white min-w-36"
           role="listbox"
-          aria-label="Options de tri"
           style="box-shadow: 0 8px 32px rgba(0,0,0,.07)"
         >
-          <?php foreach (['recents' => 'Récents', 'alpha-asc' => 'A → Z', 'alpha-desc' => 'Z → A', 'looks' => 'Nb de looks'] as $sv => $sl): ?>
+          <?php foreach ([
+            'popularite' => 'Populaires',
+            'recents'    => 'Récents',
+            'alpha-asc'  => 'A → Z',
+            'alpha-desc' => 'Z → A',
+            'looks'      => 'Nb de looks',
+          ] as $sv => $sl): ?>
             <li
               data-sort="<?= $sv ?>"
               role="option"
-              aria-selected="false"
-              class="sort-opt text-xs text-muted px-5 py-2.5 hover:text-[#1a1a1a] hover:bg-bg-soft cursor-pointer whitespace-nowrap font-body"
+              class="sort-opt text-xs text-muted px-5 py-2.5 hover:text-[#1a1a1a] hover:bg-[#f8f6f1] cursor-pointer whitespace-nowrap font-body<?= $sv === 'popularite' ? ' text-[#1a1a1a] font-medium' : '' ?>"
             ><?= htmlspecialchars($sl) ?></li>
           <?php endforeach; ?>
         </ul>
@@ -485,13 +463,10 @@
   <!-- ── Grille célébrités ── -->
   <div
     id="celebrities-grid"
-    data-page="celebrities-grid"
     class="grid grid-cols-2 md:grid-cols-4 gap-6"
     role="list"
     aria-label="Grille des célébrités"
-    aria-live="polite"
   >
-    <!-- Skeletons initiaux — remplacés par JS -->
     <?php for ($i = 0; $i < 8; $i++): ?>
       <div class="skeleton rounded-none" role="listitem"></div>
     <?php endfor; ?>
@@ -501,16 +476,11 @@
     Aucune célébrité pour ce filtre.
   </p>
 
-  <!-- Load more -->
-  <div class="text-center mt-10">
-    <button
-      id="load-more-celebs"
-      class="px-10 py-3 cursor-pointer border border-[#1a1a1a] text-sm font-medium font-body hover:bg-[#1a1a1a] hover:text-[#f2efe8] transition-all duration-200"
-      aria-label="Charger plus de célébrités"
-      type="button"
-    >
-      Charger plus
-    </button>
+  <!-- ── Pagination ── -->
+  <div id="pagination" class="flex items-center justify-center gap-2 mt-12 flex-wrap">
+    <button id="page-prev" class="page-btn" disabled>←</button>
+    <div id="page-numbers" class="flex gap-1.5 flex-wrap justify-center"></div>
+    <button id="page-next" class="page-btn">→</button>
   </div>
 
 </section>
@@ -536,211 +506,10 @@
 
 
 <!-- ════════════════════════════════════════════════════
-     JS — Fetch + filtres + tri + pagination
-     Consomme GET /api/celebrities?categorie=&sort=&page=&per_page=
+     JS — fichier externe
+     Toute la logique est dans celebrities.js
 ════════════════════════════════════════════════════ -->
-<script>
-(() => {
-  /* ── État ── */
-  let activeCategorie = 'tous';
-  let activeSort      = 'popularite';
-  let page = 1;
-  const pageSize = 16;
+<script src="/js/celebrities.js" defer></script>
 
-  /* ── Références DOM ── */
-  const grid     = document.getElementById('celebrities-grid');
-  const empty    = document.getElementById('celeb-empty');
-  const countEl  = document.getElementById('celebs-count');
-  const sortBtn  = document.getElementById('sort-btn');
-  const sortMenu = document.getElementById('sort-menu');
-  const sortLabel = document.getElementById('sort-label');
-  const filterToggle = document.getElementById('filter-toggle');
-  const filterMenu = document.getElementById('filter-menu');
-  const sortBtnMobile = document.getElementById('sort-btn-mobile');
-  const sortMenuMobile = document.getElementById('sort-menu-mobile');
-  const sortLabelMobile = document.getElementById('sort-label-mobile');
-  const loadMoreBtn = document.getElementById('load-more-celebs');
-
-  /* ── Template card — identique au HTML original ── */
-  function renderCard(c) {
-    return `
-      <article class="celeb-card cursor-pointer" role="listitem">
-        <a href="/celebrities/${c.slug}">
-          <div class="overflow-hidden" style="aspect-ratio:3/4; background:#f0ede8">
-            <img
-              src="/assets/img/${c.photo}"
-              alt="${escHtml(c.nom)}"
-              class="celeb-img w-full h-full object-cover object-top"
-              loading="lazy"
-            />
-          </div>
-          <div class="pt-4 px-1">
-            <h3 class="text-sm tracking-wide text-[#1a1a1a] font-body">${escHtml(c.nom)}</h3>
-            ${c.categorie ? `<p class="text-xs text-muted font-light mt-1 font-body">${escHtml(c.categorie)}</p>` : ''}
-            <div class="flex items-center justify-between mt-3 pt-3 border-t border-border">
-              <span class="text-xs tracking-widest uppercase font-body" style="color:var(--color-gold)">${parseInt(c.nb_looks)} looks</span>
-              <span class="celeb-arrow">Voir →</span>
-            </div>
-          </div>
-        </a>
-      </article>`;
-  }
-
-  /* ── Skeletons pendant le chargement ── */
-  function showSkeletons(n = 8) {
-    grid.innerHTML = Array(n).fill(
-      `<div class="skeleton rounded-none" role="listitem"></div>`
-    ).join('');
-  }
-
-  /* ── Escape HTML minimal ── */
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  function buildParams() {
-    const params = new URLSearchParams();
-    if (activeCategorie !== 'tous') params.set('categorie', activeCategorie);
-    if (activeSort) params.set('sort', activeSort);
-    params.set('page', String(page));
-    params.set('per_page', String(pageSize));
-    return params;
-  }
-
-  /* ── Fetch principal ── */
-  async function fetchCelebrities({ append = false } = {}) {
-    if (!append) showSkeletons();
-    empty.classList.add('hidden');
-    loadMoreBtn?.setAttribute('disabled', 'true');
-
-    try {
-      const res  = await fetch(`/api/celebrities?${buildParams().toString()}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-
-      const list = Array.isArray(data?.items) ? data.items : (Array.isArray(data) ? data : []);
-      const total = typeof data?.total === 'number' ? data.total : null;
-
-      if (!list.length && page === 1) {
-        grid.innerHTML = '';
-        empty.classList.remove('hidden');
-        countEl.textContent = '0';
-        loadMoreBtn?.classList.add('hidden');
-        return;
-      }
-
-      if (!append) grid.innerHTML = '';
-      grid.insertAdjacentHTML('beforeend', list.map(renderCard).join(''));
-
-      const renderedCount = grid.querySelectorAll('.celeb-card').length;
-      countEl.textContent = total !== null ? String(total) : String(renderedCount);
-
-      const hasMore = typeof data?.has_more === 'boolean'
-        ? data.has_more
-        : (list.length === pageSize);
-      if (hasMore) loadMoreBtn?.classList.remove('hidden');
-      else loadMoreBtn?.classList.add('hidden');
-
-    } catch (err) {
-      grid.innerHTML = `<p class="text-muted text-xs col-span-full text-center py-10 font-body">Une erreur est survenue.</p>`;
-      console.error(err);
-      loadMoreBtn?.classList.add('hidden');
-    } finally {
-      loadMoreBtn?.removeAttribute('disabled');
-    }
-  }
-
-  /* ── Listeners — filtres catégorie ── */
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed', 'true');
-      activeCategorie = btn.dataset.filter || 'tous';
-      page = 1;
-      fetchCelebrities({ append: false });
-    });
-  });
-
-  /* ── Toggle filtres mobile ── */
-  if (filterToggle && filterMenu) {
-    filterToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = !filterMenu.classList.contains('hidden');
-      filterMenu.classList.toggle('hidden');
-      filterToggle.setAttribute('aria-expanded', String(!isOpen));
-    });
-  }
-
-  /* ── Tri — toggle menu ── */
-  if (sortBtn && sortMenu) {
-    sortBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = !sortMenu.classList.contains('hidden');
-      sortMenu.classList.toggle('hidden');
-      sortBtn.setAttribute('aria-expanded', String(!isOpen));
-    });
-  }
-
-  document.addEventListener('click', () => {
-    sortMenu?.classList.add('hidden');
-    sortBtn?.setAttribute('aria-expanded', 'false');
-    sortMenuMobile?.classList.add('hidden');
-    sortBtnMobile?.setAttribute('aria-expanded', 'false');
-    filterMenu?.classList.add('hidden');
-    filterToggle?.setAttribute('aria-expanded', 'false');
-  });
-
-  sortMenu?.querySelectorAll('.sort-opt').forEach(opt => {
-    opt.addEventListener('click', (e) => {
-      e.stopPropagation();
-      activeSort = opt.dataset.sort;
-      sortLabel.textContent = opt.textContent.trim();
-      sortMenu.classList.add('hidden');
-      sortBtn.setAttribute('aria-expanded', 'false');
-      page = 1;
-      fetchCelebrities({ append: false });
-    });
-  });
-
-  /* ── Tri mobile ── */
-  if (sortBtnMobile && sortMenuMobile) {
-    sortBtnMobile.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = !sortMenuMobile.classList.contains('hidden');
-      sortMenuMobile.classList.toggle('hidden');
-      sortBtnMobile.setAttribute('aria-expanded', String(!isOpen));
-    });
-
-    sortMenuMobile.querySelectorAll('.sort-opt-mobile').forEach(opt => {
-      opt.addEventListener('click', (e) => {
-        e.stopPropagation();
-        activeSort = opt.dataset.sort;
-        sortLabelMobile.textContent = opt.textContent.trim();
-        sortMenuMobile.classList.add('hidden');
-        sortBtnMobile.setAttribute('aria-expanded', 'false');
-        page = 1;
-        fetchCelebrities({ append: false });
-      });
-    });
-  }
-
-  /* ── Charger plus ── */
-  loadMoreBtn?.addEventListener('click', () => {
-    page += 1;
-    fetchCelebrities({ append: true });
-  });
-
-  /* ── Chargement initial ── */
-  fetchCelebrities({ append: false });
-})();
-</script>
 
 <?php require_once __DIR__ . '/../partials/footer.php'; ?>

@@ -58,3 +58,532 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ============================================================
+   CELEBRITIES.CSS
+   Styles dédiés à la page /celebrities
+   Architecture : variables → reset local → composants → états
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   0.  VARIABLES LOCALES
+   (héritent du thème global, étendent pour cette page)
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* Palette dorée */
+  --gold:           #b89b6a;
+  --gold-light:     #d4b896;
+  --gold-hover:     #9e8254;
+  --gold-10:        rgba(184,155,106,.10);
+  --gold-20:        rgba(184,155,106,.20);
+
+  /* Tons neutres */
+  --dark:           #1a1a1a;
+  --dark-80:        rgba(26,26,26,.80);
+  --cream:          #f8f5ef;
+  --cream-alt:      #f0ede8;
+  --border:         #e8e3da;
+  --text:           #1a1a1a;
+  --muted:          #8a8178;
+  --faint:          #c8c2b8;
+
+  /* Typographie */
+  --font-heading:   'Cormorant Garamond', Georgia, serif;
+  --font-sans:      'DM Sans', system-ui, sans-serif;
+
+  /* Espace & rayon */
+  --radius-card:    2px;   /* cartes quasi carrées, editorial */
+  --shadow-card:    0 2px 12px rgba(26,26,26,.07);
+  --shadow-hover:   0 8px 32px rgba(26,26,26,.13);
+
+  /* Transitions */
+  --t-fast:   150ms ease;
+  --t-med:    250ms ease;
+  --t-slow:   400ms ease;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   1.  KEYFRAMES
+   ──────────────────────────────────────────────────────────── */
+
+/* Colonnes hero défilantes */
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes scrollDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+
+/* Apparitions séquentielles au chargement */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Skeleton loader */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+/* Pulse léger sur le badge "looks" */
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .7; }
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   2.  UTILITAIRES D'ANIMATION
+   ──────────────────────────────────────────────────────────── */
+.animate-scroll-up-slow  { animation: scrollUp   65s linear infinite; }
+.animate-scroll-up-fast  { animation: scrollUp   38s linear infinite; }
+.animate-scroll-down-med { animation: scrollDown 50s linear infinite; }
+
+/* FadeUp séquentiels (hero overlay) */
+.animate-fu-1 { animation: fadeUp .9s  .15s ease both; }
+.animate-fu-2 { animation: fadeUp .9s  .40s ease both; }
+.animate-fu-3 { animation: fadeUp .8s  .70s ease both; }
+.animate-fu-4 { animation: fadeUp .8s  .95s ease both; }
+.animate-fu-5 { animation: fadeUp .8s 1.20s ease both; }
+
+
+/* ────────────────────────────────────────────────────────────
+   3.  HERO — IMAGES COLONNES
+   ──────────────────────────────────────────────────────────── */
+.hero-img {
+  width:           100%;
+  display:         block;
+  object-fit:      cover;
+  object-position: center top;
+  /* Désaturation + assombrissement pour garder la lisibilité du texte */
+  filter:          saturate(.45) brightness(.65) contrast(1.10);
+  pointer-events:  none;
+  user-select:     none;
+  transition:      filter var(--t-slow);
+}
+
+/* ── Vignette (dégradés haut/bas/gauche/droite) ── */
+.hero-vignette::before {
+  content:        '';
+  position:       absolute;
+  inset:          0;
+  z-index:        10;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--dark) 0%, transparent 14%, transparent 86%, var(--dark) 100%),
+    linear-gradient(to right,  var(--dark) 0%, transparent 6%,  transparent 94%, var(--dark) 100%);
+}
+
+/* ── Grain photographique (texture SVG en base64) ── */
+.hero-grain::after {
+  content:          '';
+  position:         absolute;
+  inset:            0;
+  z-index:          11;
+  pointer-events:   none;
+  opacity:          .048;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:  180px 180px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   4.  HERO — BOUTON CTA
+   ──────────────────────────────────────────────────────────── */
+.hero-btn-primary {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             .6rem;
+  padding:         .9rem 2.4rem;
+  background:      var(--gold);
+  color:           #fff;
+  font-family:     var(--font-sans);
+  font-size:       .60rem;
+  font-weight:     500;
+  letter-spacing:  .22em;
+  text-transform:  uppercase;
+  text-decoration: none;
+  border:          none;
+  cursor:          pointer;
+  border-radius:   var(--radius-card);
+  /* Ligne décorative sous le bouton */
+  box-shadow:      0 1px 0 0 var(--gold-hover), 0 4px 18px var(--gold-20);
+  transition:      background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+}
+.hero-btn-primary:hover {
+  background:   var(--gold-hover);
+  box-shadow:   0 1px 0 0 #7a6040, 0 6px 24px var(--gold-20);
+  transform:    translateY(-1px);
+}
+.hero-btn-primary:active { transform: translateY(0); }
+
+
+/* ────────────────────────────────────────────────────────────
+   5.  SECTION CATALOGUE — BARRE DE CONTRÔLES
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Conteneur de filtres avec fond délicat ── */
+.filter-group-wrap {
+  background:    var(--cream-alt);
+  border:        1px solid var(--border);
+  border-radius: 999px;
+  padding:       .25rem .35rem;
+  display:       inline-flex;
+  gap:           .2rem;
+}
+
+/* ── Bouton filtre individuel ── */
+.filter-btn {
+  font-family:    var(--font-sans);
+  font-size:      .68rem;
+  letter-spacing: .04em;
+  padding:        .32rem .95rem;
+  cursor:         pointer;
+  border:         1px solid transparent;
+  border-radius:  999px;
+  color:          var(--muted);
+  background:     transparent;
+  transition:     color var(--t-fast), border-color var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
+  line-height:    1.6;
+  white-space:    nowrap;
+}
+.filter-btn:hover {
+  color:        var(--text);
+  border-color: var(--border);
+  background:   #fff;
+}
+/* État actif : fond crème+or, texte doré */
+.filter-btn.active {
+  color:        var(--gold);
+  border-color: var(--gold-light);
+  background:   #fff;
+  box-shadow:   0 1px 6px var(--gold-10);
+  font-weight:  500;
+}
+
+/* ── Bouton tri ── */
+.sort-trigger {
+  font-family:    var(--font-sans);
+  font-size:      .68rem;
+  letter-spacing: .04em;
+  color:          var(--muted);
+  background:     var(--cream-alt);
+  border:         1px solid var(--border);
+  border-radius:  999px;
+  padding:        .32rem 1rem;
+  display:        inline-flex;
+  align-items:    center;
+  gap:            .4rem;
+  cursor:         pointer;
+  transition:     color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+}
+.sort-trigger:hover,
+.sort-trigger[aria-expanded="true"] {
+  color:        var(--text);
+  border-color: var(--text);
+  background:   #fff;
+}
+
+/* ── Dropdown tri ── */
+.sort-menu {
+  position:     absolute;
+  right:        0;
+  top:          calc(100% + .5rem);
+  z-index:      50;
+  background:   #fff;
+  border:       1px solid var(--border);
+  border-radius: 6px;
+  min-width:    160px;
+  box-shadow:   0 8px 32px rgba(26,26,26,.10);
+  overflow:     hidden;
+}
+.sort-menu.hidden { display: none; }
+
+.sort-opt {
+  font-family:    var(--font-sans);
+  font-size:      .70rem;
+  color:          var(--muted);
+  padding:        .65rem 1.1rem;
+  cursor:         pointer;
+  display:        flex;
+  align-items:    center;
+  gap:            .5rem;
+  transition:     color var(--t-fast), background var(--t-fast);
+  border-left:    2px solid transparent;
+}
+.sort-opt:hover {
+  color:       var(--text);
+  background:  var(--cream-alt);
+}
+/* Option sélectionnée : bande or sur le côté */
+.sort-opt.is-active {
+  color:        var(--gold);
+  border-color: var(--gold);
+  background:   var(--gold-10);
+  font-weight:  500;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   6.  PAGINATION
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Conteneur global ── */
+.pagination-wrap {
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  gap:            .4rem;
+  flex-wrap:      wrap;
+  margin-top:     3rem;
+}
+
+/* ── Bouton de base (numéro ou flèche) ── */
+.page-btn {
+  font-family:    var(--font-sans);
+  font-size:      .68rem;
+  letter-spacing: .06em;
+  min-width:      2.2rem;
+  height:         2.2rem;
+  padding:        0 .6rem;
+  border:         1px solid var(--border);
+  background:     transparent;
+  color:          var(--muted);
+  cursor:         pointer;
+  border-radius:  4px;
+  display:        inline-flex;
+  align-items:    center;
+  justify-content: center;
+  transition:     all var(--t-fast);
+  position:       relative;
+  overflow:       hidden;
+}
+.page-btn::before {
+  /* Fond doré qui monte au hover */
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  background: var(--gold-10);
+  transform:  scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--t-fast);
+}
+.page-btn:hover:not(:disabled)::before { transform: scaleY(1); }
+.page-btn:hover:not(:disabled) {
+  color:        var(--text);
+  border-color: var(--gold-light);
+}
+
+/* ── Page active : fond doré plein ── */
+.page-btn.active {
+  background:   var(--gold);
+  color:        #fff;
+  border-color: var(--gold);
+  font-weight:  500;
+  box-shadow:   0 2px 10px var(--gold-20);
+  cursor:       default;
+}
+.page-btn.active::before { display: none; }
+
+/* ── Flèches prev/next ── */
+.page-btn.page-arrow {
+  font-size:    .85rem;
+  border-radius: 50%;
+  min-width:    2.2rem;
+}
+.page-btn.page-arrow:disabled {
+  opacity:        .3;
+  cursor:         default;
+  pointer-events: none;
+}
+
+/* ── Ellipse ── */
+.page-ellipsis {
+  font-size:   .70rem;
+  color:       var(--faint);
+  padding:     0 .2rem;
+  align-self:  center;
+  user-select: none;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   7.  CARDS CÉLÉBRITÉS
+   ──────────────────────────────────────────────────────────── */
+.celeb-card {
+  border-radius: var(--radius-card);
+  overflow:      hidden;
+  position:      relative;
+  /* Liseré doré discret en bas */
+  border-bottom: 2px solid transparent;
+  transition:    border-color var(--t-med), box-shadow var(--t-med), transform var(--t-med);
+}
+.celeb-card:hover {
+  border-color: var(--gold-light);
+  box-shadow:   var(--shadow-hover);
+  transform:    translateY(-3px);
+}
+
+/* ── Photo ── */
+.celeb-card .celeb-img {
+  transition: transform var(--t-slow);
+}
+.celeb-card:hover .celeb-img {
+  transform: scale(1.04);
+}
+
+/* ── Badge catégorie (coin supérieur gauche) ── */
+.celeb-badge {
+  position:       absolute;
+  top:            .7rem;
+  left:           .7rem;
+  font-family:    var(--font-sans);
+  font-size:      .50rem;
+  font-weight:    500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color:          #fff;
+  background:     var(--dark-80);
+  padding:        .2rem .55rem;
+  backdrop-filter: blur(4px);
+  border-radius:  2px;
+  pointer-events: none;
+}
+
+/* ── Nombre de looks (badge or) ── */
+.looks-badge {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             .3rem;
+  font-family:     var(--font-sans);
+  font-size:       .58rem;
+  font-weight:     500;
+  letter-spacing:  .14em;
+  text-transform:  uppercase;
+  color:           var(--gold);
+  background:      var(--gold-10);
+  border:          1px solid var(--gold-20);
+  padding:         .22rem .6rem;
+  border-radius:   999px;
+}
+/* Petit point animé */
+.looks-badge::before {
+  content:       '';
+  display:       inline-block;
+  width:         4px;
+  height:        4px;
+  border-radius: 50%;
+  background:    var(--gold);
+  animation:     pulseBadge 2s ease-in-out infinite;
+}
+
+/* ── Lien "Voir →" ── */
+.celeb-link {
+  font-family:    var(--font-sans);
+  font-size:      .60rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color:          var(--faint);
+  text-decoration: none;
+  display:        inline-flex;
+  align-items:    center;
+  gap:            .3rem;
+  transition:     color var(--t-fast), gap var(--t-fast);
+}
+.celeb-card:hover .celeb-link {
+  color: var(--gold);
+  gap:   .5rem;        /* la flèche glisse vers la droite */
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   8.  SKELETON LOADER
+   ──────────────────────────────────────────────────────────── */
+.skeleton {
+  background:      linear-gradient(90deg, var(--cream-alt) 25%, var(--border) 50%, var(--cream-alt) 75%);
+  background-size: 800px 100%;
+  animation:       shimmer 1.5s ease-in-out infinite;
+  aspect-ratio:    3 / 4;
+  border-radius:   var(--radius-card);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   9.  BANNIÈRE CTA (Style Finder)
+   ──────────────────────────────────────────────────────────── */
+.cta-banner {
+  background:   var(--dark);
+  position:     relative;
+  overflow:     hidden;
+}
+/* Halo doré décoratif en fond */
+.cta-banner::before {
+  content:       '';
+  position:      absolute;
+  top:           50%;
+  left:          50%;
+  translate:     -50% -50%;
+  width:         500px;
+  height:        500px;
+  background:    radial-gradient(circle, var(--gold-10) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-btn {
+  display:         inline-block;
+  border:          1px solid rgba(255,255,255,.35);
+  color:           #fff;
+  background:      none;
+  padding:         .8rem 2.6rem;
+  font-family:     var(--font-sans);
+  font-size:       .60rem;
+  font-weight:     500;
+  letter-spacing:  .20em;
+  text-transform:  uppercase;
+  text-decoration: none;
+  border-radius:   2px;
+  margin-top:      2rem;
+  transition:      background var(--t-med), color var(--t-med), border-color var(--t-med), box-shadow var(--t-med);
+}
+.cta-btn:hover {
+  background:   #fff;
+  color:        var(--dark);
+  border-color: #fff;
+  box-shadow:   0 4px 24px rgba(255,255,255,.15);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   10. PETITS DÉTAILS ÉDITORIAUX
+   ──────────────────────────────────────────────────────────── */
+
+/* Séparateur doré fin (utilisé dans les cards) */
+.gold-rule {
+  height:     1px;
+  background: linear-gradient(to right, transparent, var(--gold-20) 30%, var(--gold-20) 70%, transparent);
+  border:     none;
+  margin:     .75rem 0;
+}
+
+/* Compteur de résultats avec accentuation or */
+#celebs-count {
+  color:       var(--gold);
+  font-weight: 500;
+}
+
+/* ── Indicateur de chargement (dots) ── */
+.loading-dots span {
+  display:          inline-block;
+  width:            4px;
+  height:           4px;
+  border-radius:    50%;
+  background:       var(--gold);
+  animation:        pulseBadge .8s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: .2s; }
+.loading-dots span:nth-child(3) { animation-delay: .4s; }
