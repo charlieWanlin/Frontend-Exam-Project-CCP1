@@ -1,8 +1,5 @@
 <?php require_once __DIR__ . '/../partials/header.php'; ?>
 
-<!-- ════════════════════════════════════════════════════
-     STYLES INLINE
-════════════════════════════════════════════════════ -->
 <style>
   @keyframes scrollUp {
     from { transform: translateY(0); }
@@ -31,7 +28,6 @@
   .animate-fu-4 { animation: fadeUp .8s .95s ease both; }
   .animate-fu-5 { animation: fadeUp .8s 1.2s ease both; }
 
-  /* ── Images colonnes hero ── */
   .hero-img {
     width:           100%;
     display:         block;
@@ -42,7 +38,6 @@
     user-select:     none;
   }
 
-  /* ── Vignette hero ── */
   .hero-vignette::before {
     content:        '';
     position:       absolute;
@@ -54,7 +49,6 @@
       linear-gradient(to right,  #1a1a1a 0%, transparent 6%,  transparent 94%, #1a1a1a 100%);
   }
 
-  /* ── Grain hero ── */
   .hero-grain::after {
     content:          '';
     position:         absolute;
@@ -66,7 +60,6 @@
     background-size:  180px 180px;
   }
 
-  /* ── Bouton hero ── */
   .hero-btn-primary {
     display:         inline-flex;
     align-items:     center;
@@ -86,7 +79,6 @@
   }
   .hero-btn-primary:hover { background: var(--color-gold-hover); }
 
-  /* ── Filtres catégories ── */
   .filter-btn {
     font-family:    var(--font-sans);
     font-size:      .7rem;
@@ -101,17 +93,9 @@
     line-height:    1.6;
     white-space:    nowrap;
   }
-  .filter-btn:hover {
-    color:        var(--color-text);
-    border-color: var(--color-border);
-  }
-  .filter-btn.active {
-    color:        var(--color-text);
-    border-color: var(--color-text);
-    background:   transparent;
-  }
+  .filter-btn:hover  { color: var(--color-text); border-color: var(--color-border); }
+  .filter-btn.active { color: var(--color-text); border-color: var(--color-text); background: transparent; }
 
-  /* ── Boutons de pagination ── */
   .page-btn {
     font-family:    var(--font-sans);
     font-size:      .68rem;
@@ -127,40 +111,20 @@
   .page-btn.active   { border-color: var(--color-text); background: var(--color-text); color: var(--color-cream); }
   .page-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
 
-  /* ── Skeleton loader ── */
   .skeleton {
     background:      linear-gradient(90deg, #f0ede8 25%, #e8e4dd 50%, #f0ede8 75%);
     background-size: 800px 100%;
     animation:       shimmer 1.4s infinite;
-    aspect-ratio:    3 / 4;
+    aspect-ratio:    2 / 3;
   }
 
-  /* ── CTA Banner ── */
-  .cta-btn {
-    display:         inline-block;
-    border:          1px solid #fff;
-    color:           #fff;
-    background:      none;
-    padding:         .75rem 2.5rem;
-    font-family:     var(--font-sans);
-    font-size:       .62rem;
-    font-weight:     500;
-    letter-spacing:  .18em;
-    text-transform:  uppercase;
-    text-decoration: none;
-    transition:      background .2s, color .2s;
-    margin-top:      2rem;
-  }
-  .cta-btn:hover { background: #fff; color: var(--color-dark); }
-
-  /* ── Card célébrité ── */
-  .celeb-card .celeb-img {
+  .serie-card .serie-img {
     transition: transform .4s ease;
   }
-  .celeb-card:hover .celeb-img {
+  .serie-card:hover .serie-img {
     transform: scale(1.05);
   }
-  .celeb-card .celeb-arrow {
+  .serie-card .serie-arrow {
     color:          var(--color-faint);
     transition:     color .2s;
     font-family:    var(--font-sans);
@@ -168,14 +132,8 @@
     letter-spacing: .18em;
     text-transform: uppercase;
   }
-  .celeb-card:hover .celeb-arrow { color: var(--color-text); }
+  .serie-card:hover .serie-arrow { color: var(--color-text); }
 
-  /*
-   * ── Compteur "looks" sur les cartes ────────────────────
-   * Avant : couleur gold trop terne sur fond crème.
-   * Maintenant : chiffre en blanc sur pastille dorée foncée,
-   * bien lisible quelle que soit la luminosité du thème.
-   */
   .looks-count {
     display:        inline-flex;
     align-items:    center;
@@ -186,33 +144,22 @@
     letter-spacing: .12em;
     text-transform: uppercase;
     color:          #fff;
-    background:     #b8982a;        /* or foncé, contraste WCAG AA */
+    background:     #b8982a;
     padding:        .18em .55em;
     border-radius:  2px;
   }
 </style>
 
 
-<!-- ════════════════════════════════════════════════════
-     HERO — DESKTOP (colonnes défilantes)
-     CORRECTION : col 1 s'étend jusqu'en bas (height:120%, margin-top:-10%)
-════════════════════════════════════════════════════ -->
+<!-- HERO DESKTOP -->
 <section
-  id="hero-celebrities"
-  aria-label="Galerie des célébrités en vedette"
+  id="hero-series"
+  aria-label="Galerie des séries en vedette"
   class="hidden md:flex relative overflow-hidden hero-vignette hero-grain"
   style="height: calc(100vh - 40px); background: var(--color-text)"
 >
-  <!-- ── Colonnes défilantes ── -->
-  <div
-    class="absolute inset-0 flex gap-1.5 pointer-events-none select-none"
-    aria-hidden="true"
-  >
-    <!--
-      Col 1 — monte lentement
-      AVANT : margin-top:-10%; height:110%  → s'arrêtait avant le bas
-      APRÈS : margin-top:-10%; height:120%  → couvre bien tout le bas
-    -->
+  <div class="absolute inset-0 flex gap-1.5 pointer-events-none select-none" aria-hidden="true">
+
     <div class="flex-1 overflow-hidden" style="margin-top: -10%; height: 120%">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-up-slow">
         <?php foreach (array_merge($col1, $col1) as $img): ?>
@@ -227,7 +174,6 @@
       </div>
     </div>
 
-    <!-- Col 2 — descend (plus large) -->
     <div class="overflow-hidden h-full" style="flex: 1.4">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-down-med">
         <?php foreach (array_merge($col2, $col2) as $img): ?>
@@ -242,7 +188,6 @@
       </div>
     </div>
 
-    <!-- Col 3 — monte -->
     <div class="flex-1 overflow-hidden" style="margin-bottom: -10%; height: 110%">
       <div class="flex flex-col gap-1.5 w-full animate-scroll-up-slow">
         <?php foreach (array_merge($col3, $col3) as $img): ?>
@@ -256,84 +201,57 @@
         <?php endforeach; ?>
       </div>
     </div>
+
   </div>
 
-  <!-- ── Overlay éditorial ── -->
-  <div
-    class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none select-none"
-  >
-    <p
-      class="animate-fu-1 font-body"
-      style="font-size:.6rem; font-weight:500; letter-spacing:.42em; text-transform:uppercase; color:var(--color-gold); margin-bottom:1.6rem"
-    >
+  <!-- Overlay éditorial -->
+  <div class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none select-none">
+    <p class="animate-fu-1 font-body" style="font-size:.6rem; font-weight:500; letter-spacing:.42em; text-transform:uppercase; color:var(--color-gold); margin-bottom:1.6rem">
       Repérer · Identifier · Porter
     </p>
 
-    <h1
-      class="font-heading animate-fu-2 text-center"
-      style="font-size:clamp(4rem,11vw,9.5rem); font-weight:600; line-height:.88; letter-spacing:-.015em; color:var(--color-cream)"
-    >
-      Leur style.<br>
+    <h1 class="font-heading animate-fu-2 text-center" style="font-size:clamp(4rem,11vw,9.5rem); font-weight:600; line-height:.88; letter-spacing:-.015em; color:var(--color-cream)">
+      Leurs looks.<br>
       <em style="font-style:italic; color:var(--color-gold)">Votre</em><br>
-      identité.
+      garde-robe.
     </h1>
 
     <div class="animate-fu-3 flex items-center gap-5" style="margin-top:2rem">
       <span style="display:block; width:44px; height:1px; background:var(--color-gold); opacity:.35"></span>
-      <p class="font-body" style="font-size:.64rem; font-weight:300; letter-spacing:.26em; text-transform:uppercase; color:var(--color-cream); opacity:.32">
-        Célébrités
-      </p>
+      <p class="font-body" style="font-size:.64rem; font-weight:300; letter-spacing:.26em; text-transform:uppercase; color:var(--color-cream); opacity:.32">Séries</p>
       <span style="display:block; width:44px; height:1px; background:var(--color-gold); opacity:.35"></span>
     </div>
 
     <div class="animate-fu-4 pointer-events-auto" style="margin-top:2.5rem">
-      <a href="#section-catalogue" class="hero-btn-primary" aria-label="Découvrir le catalogue des célébrités">
-        Découvrir les célébrités
+      <a href="#section-catalogue" class="hero-btn-primary" aria-label="Découvrir le catalogue des séries">
+        Découvrir les séries
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M12 5v14M5 12l7 7 7-7"/>
         </svg>
       </a>
     </div>
 
-    <p
-      class="animate-fu-5 font-body"
-      style="margin-top:1.8rem; font-size:.57rem; font-weight:300; letter-spacing:.32em; text-transform:uppercase; color:var(--color-gold); opacity:.38"
-    >
-      +12 000 looks référencés
+    <p class="animate-fu-5 font-body" style="margin-top:1.8rem; font-size:.57rem; font-weight:300; letter-spacing:.32em; text-transform:uppercase; color:var(--color-gold); opacity:.38">
+      +8 000 looks référencés
     </p>
   </div>
 
-  <!-- Coins discrets -->
-  <p
-    class="absolute bottom-5 left-5 z-20 animate-fu-5 font-body"
-    style="font-size:.5rem; letter-spacing:.28em; text-transform:uppercase; color:var(--color-cream); opacity:.18"
-    aria-hidden="true"
-  >© <?= date('Y') ?></p>
-  <p
-    class="absolute bottom-5 right-5 z-20 animate-fu-5 text-right font-body"
-    style="font-size:.5rem; letter-spacing:.28em; text-transform:uppercase; color:var(--color-cream); opacity:.18"
-    aria-hidden="true"
-  >Mode · Style · Culture</p>
+  <p class="absolute bottom-5 left-5 z-20 animate-fu-5 font-body" style="font-size:.5rem; letter-spacing:.28em; text-transform:uppercase; color:var(--color-cream); opacity:.18" aria-hidden="true">© <?= date('Y') ?></p>
+  <p class="absolute bottom-5 right-5 z-20 animate-fu-5 text-right font-body" style="font-size:.5rem; letter-spacing:.28em; text-transform:uppercase; color:var(--color-cream); opacity:.18" aria-hidden="true">Mode · Séries · Culture</p>
 </section>
 
 
-<!-- ════════════════════════════════════════════════════
-     HERO — MOBILE (grille photos)
-════════════════════════════════════════════════════ -->
-<div
-  aria-label="Galerie mobile des célébrités"
-  class="flex md:hidden flex-col bg-cream"
-  style="min-height: calc(100vh - 40px)"
->
+<!-- HERO MOBILE -->
+<div aria-label="Galerie mobile des séries" class="flex md:hidden flex-col bg-cream" style="min-height: calc(100vh - 40px)">
   <div class="w-full overflow-hidden">
     <img
-      src="/assets/img/<?= htmlspecialchars($col1[0]['photo'] ?? 'celebrities/sydney-sweeney.jpg') ?>"
-      alt="<?= htmlspecialchars($col1[0]['nom'] ?? 'Célébrité') ?>"
+      src="/assets/img/<?= htmlspecialchars($col1[0]['photo'] ?? 'series/default.webp') ?>"
+      alt="<?= htmlspecialchars($col1[0]['nom'] ?? 'Série') ?>"
       class="w-full h-full object-cover object-top"
       loading="eager"
     />
   </div>
-  <div class="grid grid-cols-2" role="list" aria-label="Autres célébrités">
+  <div class="grid grid-cols-2" role="list" aria-label="Autres séries">
     <?php foreach (array_slice(array_merge($col2, $col3), 0, 4) as $img): ?>
       <div class="overflow-hidden" role="listitem">
         <img
@@ -348,48 +266,49 @@
 </div>
 
 
-<!-- ════════════════════════════════════════════════════
-     SECTION CATALOGUE
-════════════════════════════════════════════════════ -->
+<!-- SECTION CATALOGUE -->
 <section id="section-catalogue" aria-labelledby="catalogue-title" class="max-w-6xl mx-auto px-6 py-14">
 
-  <!-- En-tête -->
   <header class="text-center mb-8">
     <h2 id="catalogue-title" class="font-heading text-3xl font-normal text-[#1a1a1a]">
-      Les looks portés par les célébrités
+      Les looks portés dans les séries
     </h2>
     <p class="text-muted text-sm mt-2 font-body">
-      Inspirez-vous des styles de vos stars favorites
+      Retrouvez les tenues de vos personnages favoris
     </p>
   </header>
 
-  <!-- ── Barre de contrôles ── -->
+  <!-- Barre de contrôles -->
   <div
     id="catalogue-controls"
     class="flex items-center justify-between mb-8 gap-y-3 flex-wrap md:mb-10"
     role="toolbar"
     aria-label="Filtres et tri du catalogue"
   >
-    <!-- Compteur -->
     <div class="flex-1 min-w-fit" aria-live="polite" aria-atomic="true">
       <p class="text-xs text-muted font-body">
-        <span id="celebs-count">—</span> célébrités
+        <span id="series-count">—</span> séries
       </p>
     </div>
 
-    <!-- Filtres desktop -->
     <?php
       $cats = [
-        'tous'        => 'Tous',
-        'cinéma'      => 'Cinéma',
-        'chant'       => 'Chant',
-        'mode'        => 'Mode',
-        'sport'       => 'Sport',
-        'influenceur' => 'Influenceur',
+        'tous'          => 'Tous',
+        'drame'         => 'Drame',
+        'crime'         => 'Crime',
+        'comédie'       => 'Comédie',
+        'thriller'      => 'Thriller',
+        'sci-fi'        => 'Sci-Fi',
+        'romance'       => 'Romance',
+        'horreur'       => 'Horreur',
+        'anime'         => 'Anime',
+        'action'        => 'Action',
       ];
     ?>
-    <div class="hidden md:flex flex-1 justify-center" role="group" aria-label="Filtrer par catégorie">
-      <div class="flex gap-1.5">
+
+    <!-- Filtres desktop -->
+    <div class="hidden md:flex flex-1 justify-center" role="group" aria-label="Filtrer par genre">
+      <div class="flex gap-1.5 flex-wrap justify-center">
         <?php foreach ($cats as $val => $label): ?>
           <button
             data-filter="<?= htmlspecialchars($val) ?>"
@@ -410,7 +329,6 @@
       type="button"
     >Filtres</button>
 
-    <!-- Menu filtres mobile (masqué par défaut) -->
     <div id="filter-menu" class="hidden w-full mb-4 pb-4 border-b border-border md:hidden" role="group">
       <div class="flex flex-wrap gap-2">
         <?php foreach ($cats as $val => $label): ?>
@@ -460,23 +378,23 @@
     </div>
   </div>
 
-  <!-- ── Grille célébrités ── -->
+  <!-- Grille séries -->
   <div
-    id="celebrities-grid"
+    id="series-grid"
     class="grid grid-cols-2 md:grid-cols-4 gap-6"
     role="list"
-    aria-label="Grille des célébrités"
+    aria-label="Grille des séries"
   >
     <?php for ($i = 0; $i < 8; $i++): ?>
       <div class="skeleton rounded-none" role="listitem"></div>
     <?php endfor; ?>
   </div>
 
-  <p id="celeb-empty" class="hidden text-muted text-sm text-center py-16 font-body">
-    Aucune célébrité pour ce filtre.
+  <p id="serie-empty" class="hidden text-muted text-sm text-center py-16 font-body">
+    Aucune série pour ce filtre.
   </p>
 
-  <!-- ── Pagination ── -->
+  <!-- Pagination -->
   <div id="pagination" class="flex items-center justify-center gap-2 mt-12 flex-wrap">
     <button id="page-prev" class="page-btn" disabled>←</button>
     <div id="page-numbers" class="flex gap-1.5 flex-wrap justify-center"></div>
@@ -486,31 +404,23 @@
 </section>
 
 
-<!-- ════════════════════════════════════════════════════
-     BANNIÈRE STYLE FINDER
-════════════════════════════════════════════════════ -->
-    <section class="bg-gray-950 text-white text-center py-20 px-6">
-      <h2 class="font-playfair text-4xl font-bold">
-        Identifiez un look précis par photo
-      </h2>
-      <p class="text-gray-400 text-sm mt-3">
-        Uploadez une photo d'une scène, notre IA retrouve le vêtement exact
-      </p>
-        <a
-        href="style-finder.html"
-        class="inline-block mt-8 bg-white text-gray-900 text-xs font-bold tracking-widest uppercase px-8 py-4 hover:bg-gray-300 transition-colors duration-200"
-      >
-        UTILISER LE STYLE FINDER →
-      </a>
-    </section>
+<!-- CTA BANNER -->
+<section class="bg-gray-950 text-white text-center py-20 px-6">
+  <h2 class="font-playfair text-4xl font-bold">
+    Identifiez un look de série par photo
+  </h2>
+  <p class="text-gray-400 text-sm mt-3">
+    Uploadez une capture d'écran, notre IA retrouve le vêtement exact
+  </p>
+  
+    <a href="style-finder.html"
+    class="inline-block mt-8 bg-white text-gray-900 text-xs font-bold tracking-widest uppercase px-8 py-4 hover:bg-gray-300 transition-colors duration-200"
+  >
+    UTILISER LE STYLE FINDER →
+  </a>
+</section>
 
 
-
-<!-- ════════════════════════════════════════════════════
-     JS — fichier externe
-     Toute la logique est dans celebrities.js
-════════════════════════════════════════════════════ -->
-<script src="/js/celebrities.js" defer></script>
-
+<script src="/js/series.js" defer></script>
 
 <?php require_once __DIR__ . '/../partials/footer.php'; ?>
