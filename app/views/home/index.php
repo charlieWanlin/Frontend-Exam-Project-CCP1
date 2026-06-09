@@ -156,37 +156,37 @@
         <?php foreach ($celebrites as $celeb) : ?>
 
             <article class="group cursor-pointer">
-                <a href="/celebrities/<?= htmlspecialchars($celeb['slug']) ?>">
+    <a href="/celebrities/<?= htmlspecialchars($celeb['slug']) ?>">
 
-                    <!-- Image -->
-                    <div class="overflow-hidden aspect-3/4 bg-gray-100">
-                        <img
-                            src="/assets/img/<?= htmlspecialchars($celeb['photo']) ?>"
-                            alt="<?= htmlspecialchars($celeb['nom']) ?>"
-                            class="w-full h-full object-cover object-center transition-transform duration-400 group-hover:scale-105"
-                        />
-                    </div>
+        <!-- Image avec ratio fixe -->
+        <div class="overflow-hidden aspect-[3/4] bg-gray-100">
+            <img
+                src="/assets/img/<?= htmlspecialchars($celeb['photo']) ?>"
+                alt="<?= htmlspecialchars($celeb['nom']) ?>"
+                class="w-full h-full object-cover object-top transition-transform duration-400 group-hover:scale-105"
+            />
+        </div>
 
-                    <!-- Infos sous l'image -->
-                    <div class="pt-4 px-1">
-                        <h4 class="text-sm tracking-wide text-black">
-                            <?= htmlspecialchars($celeb['nom']) ?>
-                        </h4>
-                        <p class="text-xs text-gray-400 font-light mt-1">
-                            <?= htmlspecialchars($celeb['categorie'] ?? '') ?>
-                        </p>
-                        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                            <span class="text-xs tracking-widest text-gold uppercase">
-                                <?= (int)$celeb['nb_looks'] ?> looks
-                            </span>
-                            <span class="text-xs tracking-widest text-gray-300 group-hover:text-black transition-colors duration-200">
-                                Voir →
-                            </span>
-                        </div>
-                    </div>
+        <!-- Infos sous l'image -->
+        <div class="pt-4 px-1">
+            <h4 class="text-sm tracking-wide text-black">
+                <?= htmlspecialchars($celeb['nom']) ?>
+            </h4>
+            <p class="text-xs text-gray-400 font-light mt-1">
+                <?= htmlspecialchars($celeb['categorie'] ?? '') ?>
+            </p>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                <span class="text-xs tracking-widest text-gold uppercase">
+                    <?= (int)$celeb['nb_looks'] ?> looks
+                </span>
+                <span class="text-xs tracking-widest text-gray-300 group-hover:text-black transition-colors duration-200">
+                    Voir →
+                </span>
+            </div>
+        </div>
 
-                </a>
-            </article>
+    </a>
+</article>
 
         <?php endforeach; ?>
 
