@@ -1,4 +1,5 @@
 <?php
+
 class CelebritiesController {
 
     public function index(): void {
@@ -23,19 +24,12 @@ class CelebritiesController {
         $page      = max(1, (int)($_GET['page']     ?? 1));
         $perPage   = min(48, max(1, (int)($_GET['per_page'] ?? 16)));
 
-        $catsOk = ['tous', 'cinéma', 'chant', 'mode', 'sport', 'mannequinat', 'youtube', 'influenceur']; 
-        if (!in_array($categorie, $catsOk, true)) {
-            $categorie = 'tous';
-        }
-
-        if ($lettre !== '' && !preg_match('/^[A-Z]$/', $lettre)) {
-            $lettre = '';
-        }
+        $catsOk = ['tous', 'cinéma', 'chant', 'mode', 'sport', 'mannequinat', 'youtube', 'influenceur'];
+        if (!in_array($categorie, $catsOk, true)) $categorie = 'tous';
+        if ($lettre !== '' && !preg_match('/^[A-Z]$/', $lettre)) $lettre = '';
 
         $sortsOk = ['popularite', 'recents', 'alpha-asc', 'alpha-desc', 'looks'];
-        if (!in_array($sort, $sortsOk, true)) {
-            $sort = 'popularite';
-        }
+        if (!in_array($sort, $sortsOk, true)) $sort = 'popularite';
 
         require_once __DIR__ . '/../models/CelebrityModel.php';
         $model = new CelebrityModel();
@@ -46,6 +40,51 @@ class CelebritiesController {
 
         echo json_encode([
             'items'    => $items,
+            'total'    => $total,
+            'has_more' => $hasMore,
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    // ── Page détail d'une célébrité ─────────────────────────────
+    public function show(string $slug): void {
+        require_once __DIR__ . '/../models/CelebrityModel.php';
+        $model     = new CelebrityModel();
+        $celebrity = $model->getBySlug($slug);
+
+        if (!$celebrity) {
+            http_response_code(404);
+            echo '<h1>404 — Célébrité introuvable</h1>';
+            return;
+        }
+
+        $title      = $celebrity['nom'] . ' — Looks & Style · LE DRESSING';
+        $categories = $model->getLookCategories($celebrity['id']);
+
+        require_once __DIR__ . '/../views/celebrities/show.php';
+    }
+
+    // ── API looks d'une célébrité ───────────────────────────────
+    public function apiLooks(int $id): void {
+        header('Content-Type: application/json; charset=utf-8');
+
+        $categorie = strtolower(trim($_GET['categorie'] ?? 'tous'));
+        $sort      = trim($_GET['sort']     ?? 'popularite');
+        $page      = max(1, (int)($_GET['page']     ?? 1));
+        $perPage   = min(48, max(1, (int)($_GET['per_page'] ?? 16)));
+
+        $sortsOk = ['popularite', 'recents', 'alpha-asc'];
+        if (!in_array($sort, $sortsOk, true)) $sort = 'popularite';
+
+        require_once __DIR__ . '/../models/CelebrityModel.php';
+        $model = new CelebrityModel();
+
+        $items   = $model->getLooks($id, $categorie, $sort, $page, $perPage);
+        $total   = $model->countLooks($id, $categorie);
+        $hasMore = ($page * $perPage) < $total;
+
+        echo json_encode([
+            'looks'    => $items,
             'total'    => $total,
             'has_more' => $hasMore,
         ], JSON_UNESCAPED_UNICODE);

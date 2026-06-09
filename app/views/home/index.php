@@ -3,7 +3,7 @@
 <!-- ══════════════════════════════════════════
      Hero vidéo
 ══════════════════════════════════════════ -->
-<div class="relative overflow-hidden" style="height: calc(100vh - 56px)">
+<div class="relative overflow-hidden" style="height: 100vh; min-height: 400px;">
     <video autoplay muted loop playsinline class="w-full h-full object-cover">
         <source src="/assets/videos/hero-video.mp4" type="video/mp4" />
     </video>

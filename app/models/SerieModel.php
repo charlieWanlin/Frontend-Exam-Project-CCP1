@@ -1,73 +1,29 @@
 <?php
+
 require_once __DIR__ . '/../core/Database.php';
 
 class SerieModel {
 
-    private PDO $db;
+    private PDO $pdo;
 
     public function __construct() {
-        $this->db = getDB();
+        $this->pdo = getDB();
     }
 
-    public function getPopulaires(int $limite = 8): array {
-        $stmt = $this->db->prepare(
-            "SELECT id, nom, slug, photo, style, description, nb_looks
-             FROM series
+    // ── Héro ───────────────────────────────────────────────────
+    public function getForHero(int $limit = 24): array {
+        $stmt = $this->pdo->prepare(
+            'SELECT nom, photo FROM series
+             WHERE photo IS NOT NULL
              ORDER BY popularite DESC
-             LIMIT :limite"
+             LIMIT :limit'
         );
-        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAll(): array {
-        $stmt = $this->db->prepare(
-            "SELECT id, nom, slug, photo, style, description, nb_looks
-             FROM series
-             ORDER BY popularite DESC"
-        );
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getParSlug(string $slug): array|false {
-        $stmt = $this->db->prepare(
-            "SELECT * FROM series WHERE slug = :slug"
-        );
-        $stmt->execute([':slug' => $slug]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function getForHero(int $limite = 24): array {
-        $stmt = $this->db->prepare(
-            "SELECT photo, nom
-             FROM series
-             ORDER BY RAND()
-             LIMIT :limite"
-        );
-        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    private function buildConditions(string $style, string $lettre): array {
-        $conditions = [];
-        $params     = [];
-
-        if ($style !== 'tous' && $style !== '') {
-            $conditions[] = 'style = :style';
-            $params[':style'] = $style;
-        }
-
-        if ($lettre !== '') {
-            $conditions[] = 'nom LIKE :lettre';
-            $params[':lettre'] = $lettre . '%';
-        }
-
-        return [$conditions, $params];
-    }
-
+    // ── Catalogue filtré + paginé ───────────────────────────────
     public function getFiltered(
         string $style   = 'tous',
         string $lettre  = '',
@@ -75,11 +31,20 @@ class SerieModel {
         int    $page    = 1,
         int    $perPage = 16
     ): array {
-        [$conditions, $params] = $this->buildConditions($style, $lettre);
+        $where  = [];
+        $params = [];
 
-        $where = count($conditions) ? 'WHERE ' . implode(' AND ', $conditions) : '';
+        if ($style !== 'tous') {
+            $where[]        = 'style = :style';
+            $params[':style'] = $style;
+        }
+        if ($lettre !== '') {
+            $where[]          = 'nom LIKE :lettre';
+            $params[':lettre'] = $lettre . '%';
+        }
 
-        $orderBy = match ($sort) {
+        $whereSQL = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+        $orderSQL = match ($sort) {
             'recents'    => 'created_at DESC',
             'alpha-asc'  => 'nom ASC',
             'alpha-desc' => 'nom DESC',
@@ -89,33 +54,133 @@ class SerieModel {
 
         $offset = ($page - 1) * $perPage;
 
-        $stmt = $this->db->prepare(
-            "SELECT id, nom, slug, photo, style, nb_looks
-             FROM series
-             {$where}
-             ORDER BY {$orderBy}
-             LIMIT :limit OFFSET :offset"
-        );
+        $sql = "SELECT id, nom, slug, photo, style, description, nb_looks, popularite
+                FROM series
+                $whereSQL
+                ORDER BY $orderSQL
+                LIMIT :limit OFFSET :offset";
 
-        foreach ($params as $key => $val) {
-            $stmt->bindValue($key, $val);
-        }
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($params as $k => $v) $stmt->bindValue($k, $v);
         $stmt->bindValue(':limit',  $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset,  PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function countFiltered(string $style = 'tous', string $lettre = ''): int {
-        [$conditions, $params] = $this->buildConditions($style, $lettre);
+        $where  = [];
+        $params = [];
 
-        $where = count($conditions) ? 'WHERE ' . implode(' AND ', $conditions) : '';
+        if ($style !== 'tous') {
+            $where[]        = 'style = :style';
+            $params[':style'] = $style;
+        }
+        if ($lettre !== '') {
+            $where[]          = 'nom LIKE :lettre';
+            $params[':lettre'] = $lettre . '%';
+        }
 
-        $stmt = $this->db->prepare(
-            "SELECT COUNT(*) FROM series {$where}"
-        );
-        $stmt->execute($params);
+        $whereSQL = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM series $whereSQL");
+        foreach ($params as $k => $v) $stmt->bindValue($k, $v);
+        $stmt->execute();
         return (int) $stmt->fetchColumn();
+    }
+
+    // ── Page détail (show) ──────────────────────────────────────
+    public function getBySlug(string $slug): ?array {
+        $stmt = $this->pdo->prepare(
+            'SELECT * FROM series WHERE slug = :slug LIMIT 1'
+        );
+        $stmt->execute([':slug' => $slug]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ?: null;
+    }
+
+    // ── Looks d'une série ───────────────────────────────────────
+    public function getLooks(
+        int    $serie_id,
+        string $personnage = 'tous',
+        int    $saison     = 0,
+        string $sort       = 'popularite',
+        int    $page       = 1,
+        int    $perPage    = 16
+    ): array {
+        $where  = ['serie_id = :sid'];
+        $params = [':sid' => $serie_id];
+
+        if ($personnage !== 'tous') {
+            $where[]              = 'personnage = :personnage';
+            $params[':personnage'] = $personnage;
+        }
+        if ($saison > 0) {
+            $where[]        = 'saison = :saison';
+            $params[':saison'] = $saison;
+        }
+
+        $whereSQL = 'WHERE ' . implode(' AND ', $where);
+        $orderSQL = match ($sort) {
+            'recents'    => 'created_at DESC',
+            'alpha-asc'  => 'titre ASC',
+            default      => 'popularite DESC',
+        };
+
+        $offset = ($page - 1) * $perPage;
+
+        $sql = "SELECT id, titre, photo, categorie, personnage, saison, popularite
+                FROM looks
+                $whereSQL
+                ORDER BY $orderSQL
+                LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($params as $k => $v) $stmt->bindValue($k, $v);
+        $stmt->bindValue(':limit',  $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset,  PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countLooks(int $serie_id, string $personnage = 'tous', int $saison = 0): int {
+        $where  = ['serie_id = :sid'];
+        $params = [':sid' => $serie_id];
+
+        if ($personnage !== 'tous') {
+            $where[]              = 'personnage = :personnage';
+            $params[':personnage'] = $personnage;
+        }
+        if ($saison > 0) {
+            $where[]        = 'saison = :saison';
+            $params[':saison'] = $saison;
+        }
+
+        $whereSQL = 'WHERE ' . implode(' AND ', $where);
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM looks $whereSQL");
+        foreach ($params as $k => $v) $stmt->bindValue($k, $v);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
+
+    // ── Personnages disponibles pour une série ──────────────────
+    public function getPersonnages(int $serie_id): array {
+        $stmt = $this->pdo->prepare(
+            'SELECT DISTINCT personnage FROM looks
+             WHERE serie_id = :sid AND personnage IS NOT NULL
+             ORDER BY personnage ASC'
+        );
+        $stmt->execute([':sid' => $serie_id]);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    // ── Saisons disponibles pour une série ─────────────────────
+    public function getSaisons(int $serie_id): array {
+        $stmt = $this->pdo->prepare(
+            'SELECT DISTINCT saison FROM looks
+             WHERE serie_id = :sid AND saison IS NOT NULL
+             ORDER BY saison ASC'
+        );
+        $stmt->execute([':sid' => $serie_id]);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }

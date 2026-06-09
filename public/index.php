@@ -15,9 +15,11 @@ $router->get('/',                      'HomeController',        'index');
 $router->get('/celebrities',           'CelebritiesController', 'index');
 $router->get('/api/celebrities',         'CelebritiesController', 'api'); // route API pour les requêtes AJAX de la page célébrités
 $router->get('/celebrities/:slug',     'CelebritiesController', 'show');
+$router->get('/api/celebrities/:id/looks', 'CelebritiesController', 'apiLooks'); // route API pour les requêtes AJAX de la page détail célébrité
 $router->get('/series',                'SeriesController',      'index');
 $router->get('/api/series',            'SeriesController',      'api'); // route API pour les requêtes AJAX de la page séries
 $router->get('/series/:slug',          'SeriesController',      'show');
+$router->get('/api/series/:id/looks',   'SeriesController',      'apiLooks'); // route API pour les requêtes AJAX de la page détail série
 $router->get('/looks/:id',             'LooksController',       'show');
 $router->get('/style-finder', 'StyleFinderController', 'index');
 $router->get('/magazine', 'MagazineController', 'index');
