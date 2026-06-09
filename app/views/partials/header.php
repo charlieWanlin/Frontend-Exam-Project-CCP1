@@ -28,7 +28,7 @@
         <li><a class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200" href="/celebrities">CÉLÉBRITÉS</a></li>
         <li><a class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200" href="/series">SÉRIES</a></li>
         <li><a class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200" href="/style-finder">STYLE FINDER</a></li>
-        <li><a class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200" href="#">MAGAZINE</a></li>
+        <li><a class="text-gray-400 hover:text-black text-xs tracking-widest transition-colors duration-200" href="/magazine">MAGAZINE</a></li>
     </ul>
 
     <!-- Icons -->

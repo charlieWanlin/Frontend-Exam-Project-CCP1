@@ -20,6 +20,7 @@ $router->get('/api/series',            'SeriesController',      'api'); // route
 $router->get('/series/:slug',          'SeriesController',      'show');
 $router->get('/looks/:id',             'LooksController',       'show');
 $router->get('/style-finder', 'StyleFinderController', 'index');
+$router->get('/magazine', 'MagazineController', 'index');
 
 // Lance le routing
 // -------------------------------------------------------
