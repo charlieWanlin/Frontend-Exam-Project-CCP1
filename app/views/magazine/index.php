@@ -15,7 +15,14 @@
     --sans: system-ui, -apple-system, sans-serif;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Reset scoped à .mag-body uniquement — ne touche pas le <body> ni la navbar */
+  .mag-body *,
+  .mag-body *::before,
+  .mag-body *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   .mag-body {
     background: var(--cream);
@@ -114,7 +121,7 @@
     border-top: 1px solid var(--rule);
   }
 
-  /* ── CARD GRID : articles identiques ── */
+  /* ── CARD GRID ── */
   .article-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -202,7 +209,7 @@
   }
   .article-link:hover { color: var(--gold); border-color: var(--gold); }
 
-  /* ── FEATURED : grand article à gauche ── */
+  /* ── FEATURED ── */
   .featured-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
@@ -249,7 +256,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* Side stack */
   .featured-side {
     display: flex;
     flex-direction: column;
@@ -356,7 +362,7 @@
   }
 </style>
 
-<div class="mag-body" style="padding-top: 65px;">
+<div class="mag-body">
 
   <!-- ══ BANNER ══ -->
   <div class="banner">
@@ -379,10 +385,8 @@
         </div>
       </div>
 
-      <!-- Featured : 1 grand + 3 petits -->
       <div class="featured-grid">
 
-        <!-- Grand article gauche -->
         <article class="featured-main">
           <div class="featured-thumb">
             <img src="/assets/img/magazine/benjamin-laverhne.webp" alt="Benjamin Laverhne aux Césars 2026" />
@@ -397,7 +401,6 @@
           <a href="#" class="article-link">Lire la suite →</a>
         </article>
 
-        <!-- Stack de 3 à droite -->
         <div class="featured-side">
 
           <article class="side-article">
@@ -434,7 +437,7 @@
           </article>
 
         </div>
-      </div><!-- /featured-grid -->
+      </div>
     </div>
   </section>
 

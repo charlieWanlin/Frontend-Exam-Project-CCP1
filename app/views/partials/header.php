@@ -6,7 +6,7 @@
     <title><?= $title ?? 'LE DRESSING' ?></title>
     <link rel="stylesheet" href="/css/output.css" />
 </head>
-<body class="scrollbar-hide bg-white pt-14">
+<body class="scrollbar-hide bg-white pt-[65px]">
 
 <!-- NAVBAR -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-4 bg-white border-b border-gray-100 transition-transform duration-300 md:px-10 xl:px-16">

@@ -4,7 +4,7 @@
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
-  }
+  }ma
   .animate-fu-1 { animation: fadeUp .9s .15s ease both; }
   .animate-fu-2 { animation: fadeUp .9s .4s  ease both; }
   .animate-fu-3 { animation: fadeUp .8s .7s  ease both; }
