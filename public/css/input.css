@@ -1,112 +1,47 @@
-/* Toujours mettre les imports pour la font en premier pour éviter les problèmes de chargement */
-
 @import "tailwindcss";
 
+/* ============================================================
+   FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ============================================================
+   THEME — Design tokens globaux
+   ============================================================ */
 @theme {
-  --font-source-serif: "Source Serif 4", serif;
-  /* === FOND & STRUCTURE === */
-  --color-bg: #ffffff; /* fond principal */
-  --color-bg-soft: #faf9f7; /* sections alternées */
-  --color-bg-warm: #f4f1ec; /* highlight doux */
-  --color-border: #e8e0d4; /* dividers, cartes */
+  /* Couleurs */
+  --color-dark:        #1a1a1a;
+  --color-cream:       #f8f5ef;
+  --color-cream-alt:   #f0ede8;
+  --color-warm:        #f4f1ec;
+  --color-border:      #e8e3da;
+  --color-text:        #1a1a1a;
+  --color-muted:       #8a8178;
+  --color-faint:       #c8c2b8;
+  --color-gold:        #b89b6a;
+  --color-gold-light:  #d4b896;
+  --color-gold-hover:  #9e8254;
+  --color-gold-10:     rgba(184,155,106,.10);
+  --color-gold-20:     rgba(184,155,106,.20);
 
-  /* === TEXTE === */
-  --color-text: #1c1a18; /* corps, titres */
-  --color-onglets: #737373; /* onglets, liens */
-  --color-text-muted: #8c8279; /* descriptions */
-  --color-text-faint: #b8afa4; /* meta, labels */
+  /* Typo */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
 
-  /* === ACCENTS === */
-  --color-gold: #c9a96e; /* ★ accent principal */
-  --color-gold-deep: #b8922a; /* hover, focus */
-
-  /* === ACTIONS === */
-  --color-cta: #0d0c0b; /* boutons primaires */
-  --color-cta-text: #ffffff; /* texte boutons */
-  --color-dark: #0d0c0b; /* header, footer */
-  --font-serif: "Cormorant Garamond", serif;
-  --font-garamond: "EB Garamond", Georgia, serif;
-  --font-sans: "Didact Gothic", sans-serif;
-
-  --color-cream: #f5f0e8;
-  --color-parchment: #ede7d9;
-  --color-gold: #c9a96e;
-  --color-gold-dark: #9c7a3c;
-  --color-ink: #1a1612;
-}
-
-@layer utilities {
-  @media (min-width: 1024px) {
-    .label-1 {
-      top: 30%;
-      right: 14%;
-    }
-    .label-2 {
-      top: 30%;
-      left: 18%;
-    }
-    .label-3 {
-      bottom: 30%;
-      right: 72%;
-    }
-    .label-4 {
-      bottom: 8%;
-      right: 19%;
-    }
-  }
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  /* Ombres */
+  --shadow-card:  0 2px 12px rgba(26,26,26,.07);
+  --shadow-hover: 0 8px 32px rgba(26,26,26,.13);
 }
 
 /* ============================================================
-   CELEBRITIES.CSS
-   Styles dédiés à la page /celebrities
-   Architecture : variables → reset local → composants → états
+   RESET UTILITAIRE
    ============================================================ */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 
-
-/* ────────────────────────────────────────────────────────────
-   0.  VARIABLES LOCALES
-   (héritent du thème global, étendent pour cette page)
-   ──────────────────────────────────────────────────────────── */
-:root {
-  /* Palette dorée */
-  --gold:           #b89b6a;
-  --gold-light:     #d4b896;
-  --gold-hover:     #9e8254;
-  --gold-10:        rgba(184,155,106,.10);
-  --gold-20:        rgba(184,155,106,.20);
-
-  /* Tons neutres */
-  --dark:           #1a1a1a;
-  --dark-80:        rgba(26,26,26,.80);
-  --cream:          #f8f5ef;
-  --cream-alt:      #f0ede8;
-  --border:         #e8e3da;
-  --text:           #1a1a1a;
-  --muted:          #8a8178;
-  --faint:          #c8c2b8;
-
-  /* Typographie */
-  --font-heading:   'Cormorant Garamond', Georgia, serif;
-  --font-sans:      'DM Sans', system-ui, sans-serif;
-
-  /* Espace & rayon */
-  --radius-card:    2px;   /* cartes quasi carrées, editorial */
-  --shadow-card:    0 2px 12px rgba(26,26,26,.07);
-  --shadow-hover:   0 8px 32px rgba(26,26,26,.13);
-
-  /* Transitions */
-  --t-fast:   150ms ease;
-  --t-med:    250ms ease;
-  --t-slow:   400ms ease;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   1.  KEYFRAMES
-   ──────────────────────────────────────────────────────────── */
+/* ============================================================
+   KEYFRAMES — toutes les animations centralisées ici
+   ============================================================ */
 
 /* Colonnes hero défilantes */
 @keyframes scrollUp {
@@ -118,7 +53,7 @@
   to   { transform: translateY(0); }
 }
 
-/* Apparitions séquentielles au chargement */
+/* Apparitions au chargement */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -130,460 +65,323 @@
   100% { background-position:  600px 0; }
 }
 
-/* Pulse léger sur le badge "looks" */
+/* Pulse léger sur les badges */
 @keyframes pulseBadge {
   0%, 100% { opacity: 1; }
   50%       { opacity: .7; }
 }
 
-
-/* ────────────────────────────────────────────────────────────
-   2.  UTILITAIRES D'ANIMATION
-   ──────────────────────────────────────────────────────────── */
-.animate-scroll-up-slow  { animation: scrollUp   65s linear infinite; }
-.animate-scroll-up-fast  { animation: scrollUp   38s linear infinite; }
-.animate-scroll-down-med { animation: scrollDown 50s linear infinite; }
-
-/* FadeUp séquentiels (hero overlay) */
-.animate-fu-1 { animation: fadeUp .9s  .15s ease both; }
-.animate-fu-2 { animation: fadeUp .9s  .40s ease both; }
-.animate-fu-3 { animation: fadeUp .8s  .70s ease both; }
-.animate-fu-4 { animation: fadeUp .8s  .95s ease both; }
-.animate-fu-5 { animation: fadeUp .8s 1.20s ease both; }
-
-
-/* ────────────────────────────────────────────────────────────
-   3.  HERO — IMAGES COLONNES
-   ──────────────────────────────────────────────────────────── */
-.hero-img {
-  width:           100%;
-  display:         block;
-  object-fit:      cover;
-  object-position: center top;
-  /* Désaturation + assombrissement pour garder la lisibilité du texte */
-  filter:          saturate(.45) brightness(.65) contrast(1.10);
-  pointer-events:  none;
-  user-select:     none;
-  transition:      filter var(--t-slow);
+/* Spin (loader bouton) */
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-/* ── Vignette (dégradés haut/bas/gauche/droite) ── */
+/* ============================================================
+   CLASSES D'ANIMATION — utilisées directement dans les views
+   ============================================================ */
+
+/* Hero colonnes */
+.anim-scroll-up-slow  { animation: scrollUp   65s linear infinite; }
+.anim-scroll-up-fast  { animation: scrollUp   38s linear infinite; }
+.anim-scroll-down-med { animation: scrollDown 50s linear infinite; }
+
+/* FadeUp séquentiels (overlay hero) */
+.anim-fu-1 { animation: fadeUp .9s  .15s ease both; }
+.anim-fu-2 { animation: fadeUp .9s  .40s ease both; }
+.anim-fu-3 { animation: fadeUp .8s  .70s ease both; }
+.anim-fu-4 { animation: fadeUp .8s  .95s ease both; }
+.anim-fu-5 { animation: fadeUp .8s 1.20s ease both; }
+
+/* FadeUp courts (pages intérieures) */
+.anim-fu-a { animation: fadeUp .6s .08s ease both; }
+.anim-fu-b { animation: fadeUp .6s .20s ease both; }
+.anim-fu-c { animation: fadeUp .6s .34s ease both; }
+.anim-fu-d { animation: fadeUp .6s .48s ease both; }
+
+/* Spinner bouton */
+.anim-spin { animation: spin .7s linear infinite; }
+
+/* ============================================================
+   COMPOSANTS CUSTOM
+   Chaque classe encode un pattern réutilisable sur plusieurs pages.
+   ============================================================ */
+
+/* --- Hero : images colonnes défilantes --- */
+.hero-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(.45) brightness(.65) contrast(1.10);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 400ms ease;
+}
+
+/* Vignette dégradée haut/bas/gauche/droite */
 .hero-vignette::before {
-  content:        '';
-  position:       absolute;
-  inset:          0;
-  z-index:        10;
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
   pointer-events: none;
   background:
-    linear-gradient(to bottom, var(--dark) 0%, transparent 14%, transparent 86%, var(--dark) 100%),
-    linear-gradient(to right,  var(--dark) 0%, transparent 6%,  transparent 94%, var(--dark) 100%);
+    linear-gradient(to bottom, #1a1a1a 0%, transparent 14%, transparent 86%, #1a1a1a 100%),
+    linear-gradient(to right,  #1a1a1a 0%, transparent 6%,  transparent 94%, #1a1a1a 100%);
 }
 
-/* ── Grain photographique (texture SVG en base64) ── */
+/* Grain photographique */
 .hero-grain::after {
-  content:          '';
-  position:         absolute;
-  inset:            0;
-  z-index:          11;
-  pointer-events:   none;
-  opacity:          .048;
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  pointer-events: none;
+  opacity: .048;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:  180px 180px;
+  background-size: 180px 180px;
 }
 
-
-/* ────────────────────────────────────────────────────────────
-   4.  HERO — BOUTON CTA
-   ──────────────────────────────────────────────────────────── */
-.hero-btn-primary {
-  display:         inline-flex;
-  align-items:     center;
-  gap:             .6rem;
-  padding:         .9rem 2.4rem;
-  background:      var(--gold);
-  color:           #fff;
-  font-family:     var(--font-sans);
-  font-size:       .60rem;
-  font-weight:     500;
-  letter-spacing:  .22em;
-  text-transform:  uppercase;
-  text-decoration: none;
-  border:          none;
-  cursor:          pointer;
-  border-radius:   var(--radius-card);
-  /* Ligne décorative sous le bouton */
-  box-shadow:      0 1px 0 0 var(--gold-hover), 0 4px 18px var(--gold-20);
-  transition:      background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
-}
-.hero-btn-primary:hover {
-  background:   var(--gold-hover);
-  box-shadow:   0 1px 0 0 #7a6040, 0 6px 24px var(--gold-20);
-  transform:    translateY(-1px);
-}
-.hero-btn-primary:active { transform: translateY(0); }
-
-
-/* ────────────────────────────────────────────────────────────
-   5.  SECTION CATALOGUE — BARRE DE CONTRÔLES
-   ──────────────────────────────────────────────────────────── */
-
-/* ── Conteneur de filtres avec fond délicat ── */
-.filter-group-wrap {
-  background:    var(--cream-alt);
-  border:        1px solid var(--border);
-  border-radius: 999px;
-  padding:       .25rem .35rem;
-  display:       inline-flex;
-  gap:           .2rem;
-}
-
-/* ── Bouton filtre individuel ── */
-.filter-btn {
-  font-family:    var(--font-sans);
-  font-size:      .68rem;
-  letter-spacing: .04em;
-  padding:        .32rem .95rem;
-  cursor:         pointer;
-  border:         1px solid transparent;
-  border-radius:  999px;
-  color:          var(--muted);
-  background:     transparent;
-  transition:     color var(--t-fast), border-color var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
-  line-height:    1.6;
-  white-space:    nowrap;
-}
-.filter-btn:hover {
-  color:        var(--text);
-  border-color: var(--border);
-  background:   #fff;
-}
-/* État actif : fond crème+or, texte doré */
-.filter-btn.active {
-  color:        var(--gold);
-  border-color: var(--gold-light);
-  background:   #fff;
-  box-shadow:   0 1px 6px var(--gold-10);
-  font-weight:  500;
-}
-
-/* ── Bouton tri ── */
-.sort-trigger {
-  font-family:    var(--font-sans);
-  font-size:      .68rem;
-  letter-spacing: .04em;
-  color:          var(--muted);
-  background:     var(--cream-alt);
-  border:         1px solid var(--border);
-  border-radius:  999px;
-  padding:        .32rem 1rem;
-  display:        inline-flex;
-  align-items:    center;
-  gap:            .4rem;
-  cursor:         pointer;
-  transition:     color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
-}
-.sort-trigger:hover,
-.sort-trigger[aria-expanded="true"] {
-  color:        var(--text);
-  border-color: var(--text);
-  background:   #fff;
-}
-
-/* ── Dropdown tri ── */
-.sort-menu {
-  position:     absolute;
-  right:        0;
-  top:          calc(100% + .5rem);
-  z-index:      50;
-  background:   #fff;
-  border:       1px solid var(--border);
-  border-radius: 6px;
-  min-width:    160px;
-  box-shadow:   0 8px 32px rgba(26,26,26,.10);
-  overflow:     hidden;
-}
-.sort-menu.hidden { display: none; }
-
-.sort-opt {
-  font-family:    var(--font-sans);
-  font-size:      .70rem;
-  color:          var(--muted);
-  padding:        .65rem 1.1rem;
-  cursor:         pointer;
-  display:        flex;
-  align-items:    center;
-  gap:            .5rem;
-  transition:     color var(--t-fast), background var(--t-fast);
-  border-left:    2px solid transparent;
-}
-.sort-opt:hover {
-  color:       var(--text);
-  background:  var(--cream-alt);
-}
-/* Option sélectionnée : bande or sur le côté */
-.sort-opt.is-active {
-  color:        var(--gold);
-  border-color: var(--gold);
-  background:   var(--gold-10);
-  font-weight:  500;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   6.  PAGINATION
-   ──────────────────────────────────────────────────────────── */
-
-/* ── Conteneur global ── */
-.pagination-wrap {
-  display:        flex;
-  align-items:    center;
-  justify-content: center;
-  gap:            .4rem;
-  flex-wrap:      wrap;
-  margin-top:     3rem;
-}
-
-/* ── Bouton de base (numéro ou flèche) ── */
-.page-btn {
-  font-family:    var(--font-sans);
-  font-size:      .68rem;
-  letter-spacing: .06em;
-  min-width:      2.2rem;
-  height:         2.2rem;
-  padding:        0 .6rem;
-  border:         1px solid var(--border);
-  background:     transparent;
-  color:          var(--muted);
-  cursor:         pointer;
-  border-radius:  4px;
-  display:        inline-flex;
-  align-items:    center;
-  justify-content: center;
-  transition:     all var(--t-fast);
-  position:       relative;
-  overflow:       hidden;
-}
-.page-btn::before {
-  /* Fond doré qui monte au hover */
-  content:    '';
-  position:   absolute;
-  inset:      0;
-  background: var(--gold-10);
-  transform:  scaleY(0);
-  transform-origin: bottom;
-  transition: transform var(--t-fast);
-}
-.page-btn:hover:not(:disabled)::before { transform: scaleY(1); }
-.page-btn:hover:not(:disabled) {
-  color:        var(--text);
-  border-color: var(--gold-light);
-}
-
-/* ── Page active : fond doré plein ── */
-.page-btn.active {
-  background:   var(--gold);
-  color:        #fff;
-  border-color: var(--gold);
-  font-weight:  500;
-  box-shadow:   0 2px 10px var(--gold-20);
-  cursor:       default;
-}
-.page-btn.active::before { display: none; }
-
-/* ── Flèches prev/next ── */
-.page-btn.page-arrow {
-  font-size:    .85rem;
-  border-radius: 50%;
-  min-width:    2.2rem;
-}
-.page-btn.page-arrow:disabled {
-  opacity:        .3;
-  cursor:         default;
-  pointer-events: none;
-}
-
-/* ── Ellipse ── */
-.page-ellipsis {
-  font-size:   .70rem;
-  color:       var(--faint);
-  padding:     0 .2rem;
-  align-self:  center;
-  user-select: none;
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   7.  CARDS CÉLÉBRITÉS
-   ──────────────────────────────────────────────────────────── */
-.celeb-card {
-  border-radius: var(--radius-card);
-  overflow:      hidden;
-  position:      relative;
-  /* Liseré doré discret en bas */
-  border-bottom: 2px solid transparent;
-  transition:    border-color var(--t-med), box-shadow var(--t-med), transform var(--t-med);
-}
-.celeb-card:hover {
-  border-color: var(--gold-light);
-  box-shadow:   var(--shadow-hover);
-  transform:    translateY(-3px);
-}
-
-/* ── Photo ── */
-.celeb-card .celeb-img {
-  transition: transform var(--t-slow);
-}
-.celeb-card:hover .celeb-img {
-  transform: scale(1.04);
-}
-
-/* ── Badge catégorie (coin supérieur gauche) ── */
-.celeb-badge {
-  position:       absolute;
-  top:            .7rem;
-  left:           .7rem;
-  font-family:    var(--font-sans);
-  font-size:      .50rem;
-  font-weight:    500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color:          #fff;
-  background:     var(--dark-80);
-  padding:        .2rem .55rem;
-  backdrop-filter: blur(4px);
-  border-radius:  2px;
-  pointer-events: none;
-}
-
-/* ── Nombre de looks (badge or) ── */
-.looks-badge {
-  display:         inline-flex;
-  align-items:     center;
-  gap:             .3rem;
-  font-family:     var(--font-sans);
-  font-size:       .58rem;
-  font-weight:     500;
-  letter-spacing:  .14em;
-  text-transform:  uppercase;
-  color:           var(--gold);
-  background:      var(--gold-10);
-  border:          1px solid var(--gold-20);
-  padding:         .22rem .6rem;
-  border-radius:   999px;
-}
-/* Petit point animé */
-.looks-badge::before {
-  content:       '';
-  display:       inline-block;
-  width:         4px;
-  height:        4px;
-  border-radius: 50%;
-  background:    var(--gold);
-  animation:     pulseBadge 2s ease-in-out infinite;
-}
-
-/* ── Lien "Voir →" ── */
-.celeb-link {
-  font-family:    var(--font-sans);
-  font-size:      .60rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color:          var(--faint);
-  text-decoration: none;
-  display:        inline-flex;
-  align-items:    center;
-  gap:            .3rem;
-  transition:     color var(--t-fast), gap var(--t-fast);
-}
-.celeb-card:hover .celeb-link {
-  color: var(--gold);
-  gap:   .5rem;        /* la flèche glisse vers la droite */
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   8.  SKELETON LOADER
-   ──────────────────────────────────────────────────────────── */
+/* --- Skeleton loader --- */
 .skeleton {
-  background:      linear-gradient(90deg, var(--cream-alt) 25%, var(--border) 50%, var(--cream-alt) 75%);
+  background: linear-gradient(90deg, #f0ede8 25%, #e8e4dd 50%, #f0ede8 75%);
   background-size: 800px 100%;
-  animation:       shimmer 1.5s ease-in-out infinite;
-  aspect-ratio:    3 / 4;
-  border-radius:   var(--radius-card);
+  animation: shimmer 1.4s infinite;
+  aspect-ratio: 3 / 4;
 }
 
-
-/* ────────────────────────────────────────────────────────────
-   9.  BANNIÈRE CTA (Style Finder)
-   ──────────────────────────────────────────────────────────── */
-.cta-banner {
-  background:   var(--dark);
-  position:     relative;
-  overflow:     hidden;
-}
-/* Halo doré décoratif en fond */
-.cta-banner::before {
-  content:       '';
-  position:      absolute;
-  top:           50%;
-  left:          50%;
-  translate:     -50% -50%;
-  width:         500px;
-  height:        500px;
-  background:    radial-gradient(circle, var(--gold-10) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.cta-btn {
-  display:         inline-block;
-  border:          1px solid rgba(255,255,255,.35);
-  color:           #fff;
-  background:      none;
-  padding:         .8rem 2.6rem;
-  font-family:     var(--font-sans);
-  font-size:       .60rem;
-  font-weight:     500;
-  letter-spacing:  .20em;
-  text-transform:  uppercase;
-  text-decoration: none;
-  border-radius:   2px;
-  margin-top:      2rem;
-  transition:      background var(--t-med), color var(--t-med), border-color var(--t-med), box-shadow var(--t-med);
-}
-.cta-btn:hover {
-  background:   #fff;
-  color:        var(--dark);
-  border-color: #fff;
-  box-shadow:   0 4px 24px rgba(255,255,255,.15);
-}
-
-
-/* ────────────────────────────────────────────────────────────
-   10. PETITS DÉTAILS ÉDITORIAUX
-   ──────────────────────────────────────────────────────────── */
-
-/* Séparateur doré fin (utilisé dans les cards) */
-.gold-rule {
-  height:     1px;
-  background: linear-gradient(to right, transparent, var(--gold-20) 30%, var(--gold-20) 70%, transparent);
-  border:     none;
-  margin:     .75rem 0;
-}
-
-/* Compteur de résultats avec accentuation or */
-#celebs-count {
-  color:       var(--gold);
+/* --- Bouton primaire doré (hero CTA) --- */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 2.4rem;
+  background: var(--color-gold);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: .60rem;
   font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+}
+.btn-gold:hover { background: var(--color-gold-hover); transform: translateY(-1px); }
+
+/* --- Bouton sombre (CTA plein) --- */
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .85rem 2rem;
+  background: var(--color-dark);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: .60rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-dark);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.btn-dark:hover { background: var(--color-gold); border-color: var(--color-gold); }
+
+/* --- Bouton ghost (contour blanc sur fond sombre) --- */
+.btn-ghost-white {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  background: none;
+  padding: .8rem 2.6rem;
+  font-family: var(--font-sans);
+  font-size: .60rem;
+  font-weight: 500;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+.btn-ghost-white:hover { background: #fff; color: var(--color-dark); border-color: #fff; }
+
+/* --- Filtre pill (catalogue célébrités / séries / looks) --- */
+.filter-pill {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  padding: .32rem .95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--color-muted);
+  background: transparent;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  white-space: nowrap;
+}
+.filter-pill:hover  { color: var(--color-text); border-color: var(--color-border); }
+.filter-pill.active { color: var(--color-gold); border-color: var(--color-gold-light); background: #fff; font-weight: 500; }
+
+/* --- Bouton de pagination --- */
+.page-btn {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0 .6rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
+}
+.page-btn:hover:not(:disabled) { color: var(--color-text); border-color: var(--color-gold-light); }
+.page-btn.active { background: var(--color-gold); color: #fff; border-color: var(--color-gold); cursor: default; }
+.page-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+/* --- Badge nombre de looks (sur cartes) --- */
+.looks-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-family: var(--font-sans);
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: var(--color-gold-10);
+  border: 1px solid var(--color-gold-20);
+  padding: .22rem .6rem;
+  border-radius: 999px;
 }
 
-/* ── Indicateur de chargement (dots) ── */
-.loading-dots span {
-  display:          inline-block;
-  width:            4px;
-  height:           4px;
-  border-radius:    50%;
-  background:       var(--gold);
-  animation:        pulseBadge .8s ease-in-out infinite;
+/* --- Trait séparateur doré --- */
+.gold-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--color-gold);
+  opacity: .45;
+  margin: .7rem 0;
 }
-.loading-dots span:nth-child(2) { animation-delay: .2s; }
-.loading-dots span:nth-child(3) { animation-delay: .4s; }
+
+/* --- Eyebrow (sur-titre doré) --- */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* --- Breadcrumb --- */
+.breadcrumb-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.4rem 5vw .6rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-sans);
+  font-size: .58rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.breadcrumb-bar a { color: inherit; text-decoration: none; transition: color 150ms ease; }
+.breadcrumb-bar a:hover { color: var(--color-text); }
+.breadcrumb-bar .current { color: var(--color-text); opacity: .45; }
+
+/* --- Card célébrité / série --- */
+.media-card { position: relative; overflow: hidden; }
+.media-card .media-img { transition: transform 400ms ease; }
+.media-card:hover .media-img { transform: scale(1.05); }
+
+/* --- Stat pill (hero pages détail) --- */
+.stat-pill { display: flex; flex-direction: column; gap: .15rem; }
+.stat-pill .val {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text);
+}
+.stat-pill .lbl {
+  font-family: var(--font-sans);
+  font-size: .56rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.stat-sep { width: 1px; height: 32px; background: var(--color-border); }
+
+/* --- Bandeau CTA sombre (Style Finder) --- */
+.cta-dark-banner {
+  background: #0f0f0f;
+  color: #fff;
+  text-align: center;
+  padding: 5rem 1.5rem;
+}
+
+/* --- Input champ de formulaire --- */
+.form-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  padding: .65rem 0;
+  font-size: .875rem;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 150ms ease;
+}
+.form-input:focus { border-bottom-color: var(--color-gold); }
+.form-input::placeholder { color: var(--color-faint); font-size: .80rem; }
+.form-input.invalid { border-bottom-color: #ef4444; }
+
+/* --- Label de formulaire --- */
+.form-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: .4rem;
+}
+
+/* --- Message d'erreur inline --- */
+.form-error {
+  font-family: var(--font-sans);
+  font-size: .72rem;
+  color: #ef4444;
+  letter-spacing: .04em;
+  margin-top: .3rem;
+}
+.form-error.hidden { display: none; }
+
+/* --- Magazine : règles éditoriales --- */
+.mag-rule-top {
+  border-top: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  padding: .75rem 0 .875rem;
+  margin-bottom: 2rem;
+}
+
+/* ============================================================
+   RESPONSIVE HELPERS
+   ============================================================ */
+@media (max-width: 767px) {
+  .breadcrumb-bar { padding: 1rem 1.5rem .4rem; }
+}
