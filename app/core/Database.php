@@ -1,5 +1,6 @@
 <?php
 
+// : PDO veut dire PHP Data Objects, c'est une interface pour accéder à une base de données depuis PHP
 function getDB(): PDO {
     
     //  static: survit entre les appels, connexion créée une seule fois
@@ -7,11 +8,13 @@ function getDB(): PDO {
 
     if ($pdo === null) {
         
+    // DIR : chemin du fichier courant, ici Database.php
+
         //  require : chargé ici pour rester dans le/ bon scope
        $config = require __DIR__ . '/../../config/database.php';
 
         
-        //  : chaîne de connexion MySQL
+        //  : chaîne de connexion MySQL dsn = Data Source Name
         $dsn = "mysql:host=" . $config['host'] .
                ";dbname="  . $config['dbname'] .
                ";charset=" . $config['charset'];

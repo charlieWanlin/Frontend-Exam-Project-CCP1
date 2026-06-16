@@ -5,8 +5,10 @@ require_once __DIR__ . '/../services/Mailer.php';
 
 class AuthController
 {
+    // J'utilise la propriété typée pour m'assurer que $user est toujours une instance de User
     private User $user;
 
+    // je démarre la session dans le constructeur pour m'assurer qu'elle est disponible dans toutes les méthodes
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -18,12 +20,15 @@ class AuthController
     // ────────────────────────────────────────────
     // GET /login
     // ────────────────────────────────────────────
+
+    // Je redirige l'utilisateur vers son compte s'il est déjà connecté
     public function loginPage(): void
     {
         if (!empty($_SESSION['user_id'])) {
             header('Location: /mon-compte');
             exit;
         }
+        // Je définis une variable $tab pour indiquer à la vue quel onglet afficher (login ou register)
         $tab = 'login';
         require_once __DIR__ . '/../views/auth/login.php';
     }
@@ -31,12 +36,15 @@ class AuthController
     // ────────────────────────────────────────────
     // GET /register
     // ────────────────────────────────────────────
+
+    // Je redirige l'utilisateur vers son compte s'il est déjà connecté
     public function registerPage(): void
     {
         if (!empty($_SESSION['user_id'])) {
             header('Location: /mon-compte');
             exit;
         }
+        // Je définis une variable $tab pour indiquer à la vue quel onglet afficher (login ou register)
         $tab = 'register';
         require_once __DIR__ . '/../views/auth/login.php';
     }
@@ -46,8 +54,10 @@ class AuthController
     // ────────────────────────────────────────────
     public function login(): void
     {
+        // Je définis l'en-tête Content-Type pour indiquer que la réponse sera en JSON
         header('Content-Type: application/json');
 
+        
         $data     = $this->getJsonBody();
         $email    = trim($data['email']    ?? '');
         $password = $data['password']      ?? '';
